@@ -16,7 +16,7 @@ public abstract class FeatureModelWrapper {
 	public abstract String getCurrentResourceUri();
 	
 	public boolean isLoaded() {
-		return findAllFeatureNames() == null;
+		return !(findAllFeatureNames() == null);
 	}
 
 	public boolean isFeatureDefined(String feature) {
