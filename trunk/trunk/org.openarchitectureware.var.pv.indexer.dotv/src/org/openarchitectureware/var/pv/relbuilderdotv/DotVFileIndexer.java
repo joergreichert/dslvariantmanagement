@@ -55,7 +55,7 @@ public class DotVFileIndexer implements IIndexer {
 	
 	public static List<String> parseLine( IFile file, String line ) {
 		List<String> features = new ArrayList<String>();
-		List l = null;
+		List<String> l = null;
 		l = findInLineBySymbol( file, line, DotVBuilder.getValue(file, PreferenceConstants.FEATURE_BEGIN) );
 		if ( l != null ) features.addAll(l);
 		l = findInLineBySymbol( file, line, DotVBuilder.getValue(file, PreferenceConstants.JOINPOINT_SECTION_BEGIN) );
