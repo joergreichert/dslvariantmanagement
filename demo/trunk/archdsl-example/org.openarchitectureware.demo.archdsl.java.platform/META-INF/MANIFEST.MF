@@ -8,3 +8,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Eclipse-LazyStart: true
 Export-Package: org.demo.java.platform
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

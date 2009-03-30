@@ -14,10 +14,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.ui.ide,
  org.openarchitectureware.xtext.editor.base,
- org.openarchitectureware.demo.archdsl.language,
- org.openarchitectureware.var.featureaccess;bundle-version="1.0.0"
+ org.openarchitectureware.demo.archdsl.language
 Eclipse-LazyStart: true
 Export-Package: org.openarchitectureware.demo.archdsl.language,
  org.openarchitectureware.demo.archdsl.language.editor
 Bundle-ClassPath: .
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 
