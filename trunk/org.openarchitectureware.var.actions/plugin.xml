@@ -11,10 +11,24 @@
 	       icon="icons/ctool16/openbrwsr.png"
 	       menubarPath="additions"
 	       helpContextId="org.eclipse.ui.examples.readmetool.open_browser_action_context"
-	       class="vartoolingactions.popup.actions.VarAction"	
+	       class="org.openarchitectureware.var.actions.popup.actions.VarAction"	
            definitionId="org.eclipse.ui.examples.readmetool.action1"
 	       enablesFor="1">
 	    </action>
 	 </objectContribution>
+</extension>
+<extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.openarchitectureware.var.actions.preferences.PreferenceInitializer">
+      </initializer>
+</extension>
+<extension
+      point="org.eclipse.ui.propertyPages">
+   <page
+         class="org.openarchitectureware.var.actions.properties.VarActionPropertyPage"
+         id="org.openarchitectureware.var.actions.samplePropertyPage"
+         name="VarActions">
+   </page>
 </extension>
 </plugin>
