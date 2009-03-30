@@ -9,3 +9,4 @@ Export-Package: org.openarchitectureware.var.featureaccess,
  org.openarchitectureware.var.featureaccess.dummy,
  org.openarchitectureware.var.featureaccess.ext,
  org.openarchitectureware.var.featureaccess.pv
+Bundle-RequiredExecutionEnvironment: J2SE-1.5 
