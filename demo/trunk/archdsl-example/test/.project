@@ -25,6 +25,24 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.openarchitectureware.base.oawBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.ps.consul.eclipse.relationsbuilder.RelationsBuilder</name>
+			<arguments>
+				<dictionary>
+					<key>filetypes</key>
+					<value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;c&gt;&lt;i&gt;*.txt&lt;/i&gt;&lt;i&gt;*.xml&lt;/i&gt;&lt;i&gt;*.h&lt;/i&gt;&lt;i&gt;*.c&lt;/i&gt;&lt;i&gt;*.hh&lt;/i&gt;&lt;i&gt;*.cc&lt;/i&gt;&lt;i&gt;*.cxx&lt;/i&gt;&lt;i&gt;*.cpp&lt;/i&gt;&lt;i&gt;*.java&lt;/i&gt;&lt;i&gt;*.v&lt;/i&gt;&lt;i&gt;*.adsl&lt;/i&gt;&lt;/c&gt;</value>
+				</dictionary>
+				<dictionary>
+					<key>scantypes</key>
+					<value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&lt;c/&gt;</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.pde.PluginNature</nature>
@@ -33,5 +51,7 @@
 		<nature>com.ps.consul.eclipse.ui.ecoreexport.AutoExportFMNature</nature>
 		<nature>com.ps.consul.eclipse.ui.ecoreexport.AutoExportSimplifiedVDMNature</nature>
 		<nature>org.openarchitectureware.var.dotvbuilder.dotVNature</nature>
+		<nature>org.openarchitectureware.base.oawNature</nature>
+		<nature>com.ps.consul.eclipse.relationsbuilder.RelationIndexNature</nature>
 	</natures>
 </projectDescription>
