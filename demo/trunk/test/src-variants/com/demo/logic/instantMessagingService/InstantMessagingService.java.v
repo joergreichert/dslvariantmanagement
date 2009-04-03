@@ -10,7 +10,7 @@ import com.demo.logic.IMessageDispatcherResponse;
 
 public class InstantMessagingService extends InstantMessagingServiceBase {
 
-	@Override
+	
 	public IMessageDispatcherResponse requestDispatch(
 			IMessageDispatcherRequest request) {
 		if( request.getConversationID() == 0 ){
@@ -40,12 +40,12 @@ public class InstantMessagingService extends InstantMessagingServiceBase {
 		return response;
 	}
 
-	@Override
+	
 	public void receiveSendMessage(IInstantMessagingServiceRequest message) {
 		//send message
 	}
 
-	@Override
+	
 	public IAudioServiceResponse requestDial(IAudioServiceRequest request) {
 		
 		//# TelephoneIntegration
@@ -62,19 +62,19 @@ public class InstantMessagingService extends InstantMessagingServiceBase {
 		
 	}
 	
-	@Override
+	
 	public void receiveAddToConference(IAudioServiceRequest message) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void receiveHangUp(IAudioServiceRequest message) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void receiveMicOff(IAudioServiceRequest message) {
 		// TODO Auto-generated method stub
 		
