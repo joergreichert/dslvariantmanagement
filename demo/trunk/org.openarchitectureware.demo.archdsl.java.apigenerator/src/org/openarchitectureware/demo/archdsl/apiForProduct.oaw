@@ -5,17 +5,19 @@
 	<property name="genPath"/>
 	
 	<bean class="org.eclipse.mwe.emf.StandaloneSetup">
-	    <platformUri value="../../archdsl-source"/>
+	    <platformUri value=".."/> 
 		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmodel.PvmodelPackage" />
 	</bean>
 	
+	
+	
 	<component file="org/openarchitectureware/var/tailor/model/tailorPV.oaw"
 		architectureModelFile="${adslFile}"
-		configurationModelUri="${configModelUri}"
-		dslPackage="platform:/resource/org.openarchitectureware.demo.archdsl.language/src-gen/org/openarchitectureware/demo/archdsl/language/adsl.ecore"
+		configurationModelUri="${configModelUri}"		
 		parserCartridge="org/openarchitectureware/demo/archdsl/language/parser/Parser.oaw"
 		constraintFile="org::openarchitectureware::demo::archdsl::language::Checks" />
 		/>
+
 
 	<component class="oaw.check.CheckComponent">
 	       <metaModel id="mm" class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
