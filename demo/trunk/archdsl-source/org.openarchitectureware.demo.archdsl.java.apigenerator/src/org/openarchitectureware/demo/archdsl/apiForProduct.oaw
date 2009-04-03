@@ -9,7 +9,7 @@
 		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmodel.PvmodelPackage" />
 	</bean>
 	
-	<component file="org/openarchitectureWare/var/tailor/model/tailorPV.oaw"
+	<component file="org/openarchitectureware/var/tailor/model/tailorPV.oaw"
 		architectureModelFile="${adslFile}"
 		configurationModelUri="${configModelUri}"
 		dslPackage="platform:/resource/org.openarchitectureware.demo.archdsl.language/src-gen/org/openarchitectureware/demo/archdsl/language/adsl.ecore"
