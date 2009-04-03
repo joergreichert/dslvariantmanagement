@@ -3,13 +3,16 @@
 	<property name="dslPackage"/>
 	<property name="constraintFile"/>
 	<property name="parserCartridge"/>
+	
 
 	<bean class="org.eclipse.mwe.emf.StandaloneSetup">
-		<platformUri value=".."/>
-		<registerEcoreFile value="${dslPackage}"/>
 		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmodel.PvmodelPackage" />
 		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmeta.PvmetaPackage" />
 	</bean>
+	
+	<bean class="org.openarchitectureware.demo.archdsl.language.MetaModelRegistration"/>
+
+	
 
     <component file="${parserCartridge}">
         <modelFile value="${architectureModelFile}"/>
