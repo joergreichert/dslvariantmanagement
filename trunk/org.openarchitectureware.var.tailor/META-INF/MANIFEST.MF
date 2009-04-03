@@ -4,7 +4,7 @@ Bundle-Name: org.openarchitectureware.var.tailor
 Bundle-SymbolicName: org.openarchitectureware.var.tailor;singleton:=true
 Bundle-Version: 1.0.0
 Require-Bundle: org.openarchitectureware.dependencies,
- org.openarchitectureware.var.featureaccess,
+ org.openarchitectureware.var.featureaccess;visibility:=reexport,
  org.openarchitectureware.xtext.core.base,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
