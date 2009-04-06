@@ -8,7 +8,7 @@ Require-Bundle: org.openarchitectureware.dependencies;visibility:=reexport,
  org.openarchitectureware.xtext.core.base;visibility:=reexport,
  org.openarchitectureware.xtext.generator,
  org.openarchitectureware.graphviz;bundle-version="4.3.1",
- org.openarchitectureware.var.featureaccess;bundle-version="1.0.0"
+ org.openarchitectureware.var.tailor;visibility:=reexport
 Eclipse-LazyStart: true
 Export-Package: org.openarchitectureware.demo.archdsl.language,
  org.openarchitectureware.demo.archdsl.language.parser
