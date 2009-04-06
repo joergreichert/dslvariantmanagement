@@ -7,7 +7,7 @@ label( Attribute this ): name+": "+
 	(CollectionTypeRef.isInstance(typeref) ? "collection("+typeref.type.name+")" : typeref.type.name);
 	
 image( emf::EObject this ):
-	metaType.simpleName().toLowerCase()+".gif"; 
+	metaType.simpleName().toLowerCase()+".gif"; 	 
 
 simpleName( oaw::Type this ):
 	name.split(":").get(2);
@@ -36,6 +36,18 @@ label( ConfigurationParameterSetting this ): null;
 label( ComponentConfiguration this ): "config";	
 
 label( InstanceConfiguration this ): "config";
+
+label( InstanceNodeMapping this ): "instance mapping for " + nodeRef.name;
+image( InstanceNodeMapping this ): "node.gif";
+label( InstanceRef this ): null;
+
+image( AppServerNode this): "node.gif"; 
+image( DbServerNode this): "node.gif";
+image( MakeFile this): "file.gif";
+image( ComponentAPIGenerationSpec this): "component.gif";
+label( ComponentAPIGenerationSpec this): this.component.name;
+label( Import this): this.uri;
+
 
 ////// Feature extensions ///////
 //*****************************//
