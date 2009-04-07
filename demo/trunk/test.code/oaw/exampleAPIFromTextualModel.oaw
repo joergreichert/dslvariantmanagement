@@ -1,7 +1,0 @@
-<workflow>
-
-	<property name="adslfile" value="components/aodb.adsl"/> 
-	
-	<component file="org::openarchitectureware::demo::archdsl::apiFromTextualModel.oaw" adslfile="${adslfile}"/>
-
-</workflow>
