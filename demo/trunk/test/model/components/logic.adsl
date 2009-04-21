@@ -63,16 +63,19 @@ system collabSPL {
 		}
 		
 		blcomponent MessageDispatcher{
-			provides pUI :  IMessageDispatcher;  	//port for ui
-			requires rService : IMessageDispatcher;	//port for message service
+			provides pUI :  IMessageDispatcher;  
+			requires toMany rService : IMessageDispatcher;
 			config {
-				instancedef p1: text
+				deployment 	testEnvironment: boolean
+				startup 	timeOutMs:	 numeric 
+				instancedef minPoolSize: numeric
+				instancedef maxPoolSize: numeric
 			}
 		}
 		
 		
 		blcomponent MicroBloggingService feature MicroBlogging {
-			provides toMany pDispatcher: IMessageDispatcher;
+			provides pDispatcher: IMessageDispatcher;
 			provides pService: IMicroBloggingService;
 			config {
 			}
@@ -80,15 +83,15 @@ system collabSPL {
 		
 		
 		blcomponent ForumService  feature Forum {
-			provides toMany pDispatcher: IMessageDispatcher;
-			provides rService: IForumService;
+			provides pDispatcher: IMessageDispatcher;
+			provides pService: IForumService;
 			config {
 			}
 		}
 		
 		
 		blcomponent InstantMessagingService feature SynchronousConferencing {
-			provides toMany pDispatcher: IMessageDispatcher;
+			provides pDispatcher: IMessageDispatcher;
 			provides pService: IInstantMessagingService;
 			provides audioServices : IAudioService;
 			requires audioCon: IAudioConnection feature Audio; 
