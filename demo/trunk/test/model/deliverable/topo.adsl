@@ -8,16 +8,11 @@ topology UnserRechenzentrum {
 }
 
 deployment collabdeployment  
-	deliverablesystem collabsys
-	topology UnserRechenzentrum 
-{
-
-	map AS {
-		instance forumUI
-		instance mbUI
-		instance imUI
+	deliverablesystem collabsys  
+	topology UnserRechenzentrum {
+		map AS {
+			instance forumUI
+			instance mbUI
+			instance imUI
+		}
 	}
-	
-
-
-}
