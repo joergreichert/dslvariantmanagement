@@ -10,7 +10,8 @@ deliverablesystem collabsys  feature Forum {
 	
 	instance forumDispatcher : MessageDispatcher
 	config {
-		p1 = "forum dipatcher config"
+		minPoolSize = 100
+	    maxPoolSize = 200
 	};
 	instance forumService : ForumService;
 	
@@ -19,9 +20,6 @@ deliverablesystem collabsys  feature Forum {
 	
 	//connect dispatcher to MessagingService
 	connect forumDispatcher.rService to forumService.pDispatcher;
-	 		 
-	
-	
 }
 	
 	
@@ -30,7 +28,8 @@ deliverablesystem collabsys feature  MicroBlogging {
 	
 	instance mbDispatcher : MessageDispatcher
 	config {
-		p1 = "MicroBlogging dipatcher config"
+	    minPoolSize = 100
+	    maxPoolSize = 200
 	};
 	instance mbService : MicroBloggingService;
 	
@@ -49,7 +48,8 @@ deliverablesystem collabsys feature SynchronousConferencing {
 	
 	instance imDispatcher : MessageDispatcher	
 	config {
-		p1 = "Hallo: Meine Config"
+		minPoolSize = 100
+	    maxPoolSize = 200
 	};
 	instance imService : InstantMessagingService;
 	
@@ -63,6 +63,5 @@ deliverablesystem collabsys feature SynchronousConferencing {
 	instance audio : VOIPConnection      feature VoiceOverIP;
 	
 	connect imService.audioCon to audio.audioCon;
-	
 }	
 
