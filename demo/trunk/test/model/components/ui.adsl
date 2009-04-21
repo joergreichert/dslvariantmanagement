@@ -1,22 +1,23 @@
+featuremodel "platform:/resource/org.openarchitectureware.demo.fm/org.openarchitectureware.demo.fm.xfm.xmi";
+
 import 'components/lib.adsl'  
 import 'components/logic.adsl'
- 
+
 system collabSPL { 
 	
   	system ui { 
   		using collabSPL.logic;
 
-  		uicomponent InstantMessagingUI {
+  		uicomponent InstantMessagingUI feature SynchronousConferencing {
   			requires rDispatcher : IMessageDispatcher;
   		}
   		
-  		uicomponent ForumUI {
+  		uicomponent ForumUI feature Forum {
   			requires rDispatcher : IMessageDispatcher;
   		}
   		
-  		uicomponent MicroBloggingUI {
+  		uicomponent MicroBloggingUI feature MicroBlogging {
   			requires rDispatcher : IMessageDispatcher;
   		}
   	}
-
 }
