@@ -1,0 +1,64 @@
+	digraph "examplevis" {
+		
+			graph [fontname="arial"];
+			node [fontname="arial"];
+			edge [fontname="arial"];
+		
+		
+	subgraph "cluster_collabSPL.logic" {
+		
+		    label = "<<system>> logic";
+		
+		
+	"0" [ label="CollabDB", shape="box3d", fillcolor="grey", style="filled", style="bold, filled" ];
+	"1" [ label="MessageDispatcher", shape="box3d", fillcolor="grey", style="filled", style="bold, filled" ];
+	"2" [ label="MicroBloggingService", shape="box3d", fillcolor="grey", style="filled", style="bold, filled" ];
+	"3" [ label="ForumService", shape="box3d", fillcolor="grey", style="filled", style="bold, filled" ];
+	"4" [ label="InstantMessagingService", shape="box3d", fillcolor="grey", style="filled", style="bold, filled" ];
+	"5" [ label="TelephoneConnection", shape="box3d", fillcolor="grey", style="filled", style="bold, filled" ];
+	"6" [ label="VOIPConnection", shape="box3d", fillcolor="grey", style="filled", style="bold, filled" ];
+	"7" [ label="IMessageDispatcher", shape="record", label="{IMessageDispatcher|request/reply: dispatch (message: string, sourceID: int, destinationID: int, conversationID: int, openKey: int, encryptedHash: int) - (conversationID: int)}" ];
+	"8" [ label="IMicroBloggingService", shape="record", label="{IMicroBloggingService|oneway: updateMessage(senderID: int, message: string)}" ];
+	"9" [ label="IInstantMessagingService", shape="record", label="{IInstantMessagingService|oneway: sendMessage(senderID: int, receiverID: int, message: string, openKey: int, encryptedHash: int)}" ];
+	"10" [ label="IForumService", shape="record", label="{IForumService|oneway: updateMessage(senderID: int, threadID: int, message: string)\lrequest/reply: openThread (senderID: int, title: string) - (threadID: int)}" ];
+	"11" [ label="IAudioConnection", shape="record", label="{IAudioConnection|request/reply: establishCon (callerID: int, calleeID: int, openKey: int) - (callID: int)\loneway: breakCon(callID: int)}" ];
+	"12" [ label="IAudioService", shape="record", label="{IAudioService|request/reply: dial (callerID: int, calleeID: int, openKey: int) - (callID: int)\loneway: addToConference(calleeID: int, callID: int)\loneway: hangUp(callID: int)\loneway: micOff(callerID: int)}" ];
+	"13" [ label="UserInfo", shape="parallelogram" ];
+	"1"  -> "7"  [ arrowhead="vee", style="solid", color="blue", fontcolor="blue", label="pUI" ];
+	"1"  -> "7"  [ arrowhead="vee", style="dashed", color="red", fontcolor="red", label="rService" ];
+	"2"  -> "7"  [ arrowhead="vee", style="solid", color="blue", fontcolor="blue", label="pDispatcher" ];
+	"2"  -> "8"  [ arrowhead="vee", style="solid", color="blue", fontcolor="blue", label="pService" ];
+	"3"  -> "7"  [ arrowhead="vee", style="solid", color="blue", fontcolor="blue", label="pDispatcher" ];
+	"3"  -> "10"  [ arrowhead="vee", style="solid", color="blue", fontcolor="blue", label="pService" ];
+	"4"  -> "7"  [ arrowhead="vee", style="solid", color="blue", fontcolor="blue", label="pDispatcher" ];
+	"4"  -> "9"  [ arrowhead="vee", style="solid", color="blue", fontcolor="blue", label="pService" ];
+	"4"  -> "12"  [ arrowhead="vee", style="solid", color="blue", fontcolor="blue", label="audioServices" ];
+	"4"  -> "11"  [ arrowhead="vee", style="dashed", color="red", fontcolor="red", label="audioCon" ];
+	"5"  -> "11"  [ arrowhead="vee", style="solid", color="blue", fontcolor="blue", label="audioCon" ];
+	"6"  -> "11"  [ arrowhead="vee", style="solid", color="blue", fontcolor="blue", label="audioCon" ]	
+	}	
+;
+	subgraph "cluster_collabSPL" {
+		
+		    label = "<<system>> collabSPL";
+		
+			
+	}	
+;
+	subgraph "cluster_lib" {
+		
+		    label = "<<system>> lib";
+		
+			
+	}	
+;
+	subgraph "cluster_lib.types" {
+		
+		    label = "<<system>> types";
+		
+		
+	"14" [ label="Date", shape="parallelogram" ]	
+	}	
+
+	}
+	

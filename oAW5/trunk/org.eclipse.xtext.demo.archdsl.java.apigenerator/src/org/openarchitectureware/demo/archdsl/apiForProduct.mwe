@@ -1,0 +1,38 @@
+<workflow abstract="true">
+
+	<property name="adslFile"/> 
+	<property name="configModelUri"/>
+	<property name="genPath"/>
+	
+	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup">
+	    <platformUri value=".."/> 
+		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmodel.PvmodelPackage" />
+	</bean>
+	
+	
+	<component file="org/openarchitectureware/var/tailor/model/tailorPV.mwe"
+		architectureModelFile="${adslFile}"
+		configurationModelUri="${configModelUri}"		
+		constraintFile="org::eclipse::xtext::demo::archdsl::language::checks::Checks" />
+		/>
+
+
+	<component class="org.eclipse.xtend.check.CheckComponent">
+	       <metaModel id="mm" class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel"/>
+	       <emfAllChildrenSlot value="model"/>
+		   <checkFile value="org::eclipse::xtext::demo::archdsl::language::checks::ProductInstanceChecks"/>
+	</component>
+
+	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner" 
+		directory="${genPath}"/>
+		
+	<component id="gen" class="org.eclipse.xpand2.Generator" skipOnErrors="true">
+		<metaModel id="mm" class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel" 
+			useSingleGlobalResourceSet="true"/>
+		<genPath value="${genPath}"/>
+		<expand value="org::openarchitectureware::demo::archdsl::root::root FOR model"/>
+		<!-- TODO: fix <beautifier class="org.eclipse.xpand2.output.JavaBeautifier"/> -->
+	</component>  
+
+
+</workflow> 

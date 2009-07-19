@@ -1,0 +1,65 @@
+«IMPORT adsl»
+«EXTENSION org::openarchitectureware::demo::archdsl::utils»
+
+
+«DEFINE datatype FOR DataType»
+ 	«REM»never called - abstract superclass«ENDREM»
+«ENDDEFINE»
+
+«DEFINE datatype FOR PrimitiveType»
+ 	«REM»do nothing - use Java types«ENDREM»
+«ENDDEFINE»
+
+
+
+«DEFINE datatype FOR ComplexType»
+«FILE classFileName()»
+package «packageName()»;
+
+/**
+ * complex type implementation for «name»,
+ * automatically generated!
+*/
+public class «className()» {
+	«EXPAND attributeAndStuff FOREACH attributes»
+}
+«ENDFILE» 	
+«ENDDEFINE» 
+
+«DEFINE attributeAndStuff FOR Attribute»
+
+	«IF CollectionTypeRef.isInstance(typeref)»
+
+		// generated from «name», a collection attribute. Hence the list.
+		private «typeref.javaType()» «name»List = «typeref.javaInitializer()»;
+
+		// add a new value to the collection attribute
+		public void add«name.toFirstUpper()»(«typeref.type.javaType()» value) {
+			this.«name»List.add( value );
+		}
+		
+		// returns the list of values in the collection attributes
+		public «typeref.javaType()» get«name.toFirstUpper()»() {
+			return this.«name»List;
+		}
+
+	«ELSE»
+		
+		// «name» is not a collection
+		private «typeref.javaType()» «name» = «typeref.javaInitializer()»;
+ 
+ 		// set a value for «name»
+		public void set«name.toFirstUpper()»(«typeref.javaType()» value) {
+			this.«name» = value;
+		}
+		
+		// return the value of the «name» property
+		public «typeref.javaType()» get«name.toFirstUpper()»() {
+			return this.«name»;
+		}
+
+	«ENDIF»
+
+«ENDDEFINE»
+
+

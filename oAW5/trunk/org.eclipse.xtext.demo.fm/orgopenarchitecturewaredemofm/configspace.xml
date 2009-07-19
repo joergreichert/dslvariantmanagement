@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cm:consulmodel xmlns:cm="http://www.pure-systems.com/consul/model" cm:id="iy9wRTutwr0s2mljE" cm:version="1.1" cm:type="ps:configspace"><cm:head></cm:head>
+<cm:elements cm:rootid="i95OMUBrXgfqkMUrC"><cm:element cm:id="i95OMUBrXgfqkMUrC" cm:class="ps:lookup"><cm:relations cm:id="iVCVkMDVD4uyHH763" cm:class="ps:models"><cm:relation cm:id="iabBlRA2BWgi5NxTO" cm:type="ps:used"><cm:target cm:id="iOgqn-oqJ2pY0qUR6">./i6_VGYm_nrJjqGB15</cm:target>
+<cm:target cm:id="i_RLrE8_6BTuXTzsM">./ijc9ZBPBqfZZscSKe</cm:target>
+</cm:relation>
+</cm:relations>
+<cm:properties><cm:property cm:id="i_7Bq-PjzhbDGt57o" cm:type="ps:path" cm:name="module_base"><cm:constant cm:id="iF7zg38nExbv7cAI3" cm:type="ps:path">$(WORKSPACE)</cm:constant>
+</cm:property>
+<cm:property cm:id="ihBrpR_tmzmQ5x53m" cm:type="ps:path" cm:name="transform_module"><cm:constant cm:id="icEpK2wU_8BRG-Vg4" cm:type="ps:path">$(PROJECT)/orgopenarchitecturewaredemofm/moduleconfig.xml</cm:constant>
+</cm:property>
+</cm:properties>
+</cm:element>
+<cm:element cm:id="i6_VGYm_nrJjqGB15" cm:name="ix3_C7ZUoa3l26lya" cm:type="ps:used" cm:class="ps:model"><cm:properties><cm:property cm:id="ic8rBF6g5q_7UB6cH" cm:type="ps:string" cm:name="model_type"><cm:constant cm:id="imTJTpdo2snSLcWlU" cm:type="ps:string">ps:fm</cm:constant>
+</cm:property>
+<cm:property cm:id="iG6M0z3zwLzMf3_oU" cm:type="ps:path" cm:name="model_path"><cm:constant cm:id="iK4lEyn0spTB8G-KR" cm:type="ps:path">$(PROJECT)/org.openarchitectureware.demo.fm.xfm</cm:constant>
+</cm:property>
+</cm:properties>
+</cm:element>
+<cm:element cm:id="ijc9ZBPBqfZZscSKe" cm:name="i1FMza1FuzpYcxZWk" cm:type="ps:used" cm:class="ps:model"><cm:properties><cm:property cm:id="iei7rBRa2aQ9Qcri-" cm:type="ps:string" cm:name="model_type"><cm:constant cm:id="iNTC4TWItnBBXTeCK" cm:type="ps:string">ps:ccfm</cm:constant>
+</cm:property>
+<cm:property cm:id="iP5LneMmBEhoom8Ht" cm:type="ps:path" cm:name="model_path"><cm:constant cm:id="imzJ-V6idsm5WfEpr" cm:type="ps:path">$(PROJECT)/org.openarchitectureware.demo.fm.ccfm</cm:constant>
+</cm:property>
+</cm:properties>
+</cm:element>
+</cm:elements>
+</cm:consulmodel>

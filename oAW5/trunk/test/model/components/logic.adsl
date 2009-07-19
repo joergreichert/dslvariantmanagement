@@ -1,0 +1,125 @@
+featuremodel "platform:/resource/org.eclipse.xtext.demo.fm/org.openarchitectureware.demo.fm.xfm.xmi";
+
+import './lib.adsl'  
+
+system collabSPL {
+
+	system logic {
+		using lib.types;
+		
+		struct UserInfo {
+			username : string;
+			name : string;
+			status : int;
+		}
+		
+		interface IMessageDispatcher{
+			rr dispatch : request=( message : string, 
+									sourceID: int, 
+									destinationID: int, 
+									conversationID: int,
+									openKey: int feature Security,
+									encryptedHash: int feature Authentication ) 
+						  reply=( conversationID : int );
+		}
+				  
+		interface IMicroBloggingService  feature MicroBlogging { 
+			oneway updateMessage: ( senderID: int , message: string); 
+		}
+		
+		interface IInstantMessagingService feature SynchronousConferencing {
+			oneway sendMessage: ( senderID: int,
+								  receiverID: int,
+								  message: string,
+								  openKey: int feature Security,
+								  encryptedHash: int feature Authentication ); 
+		}
+		
+		interface IForumService feature SynchronousConferencing {
+			oneway updateMessage: ( senderID: int , threadID: int, message: string) ;
+			rr openThread: request=( senderID: int, title: string ) reply=( threadID: int ); 
+		}
+		
+		interface IAudioConnection feature Audio {
+			rr establishCon: request=(callerID: int,
+									  calleeID: int,
+									  openKey: int feature Security) 
+							 reply=( callID: int );
+			oneway breakCon : ( callID: int );
+		}
+		
+		interface IAudioService feature Audio {
+			rr dial: request=(callerID: int,
+							  calleeID: int,
+							  openKey: int feature Security) 
+					 reply=( callID: int );
+			oneway addToConference : (calleeID: int, callID: int);
+			oneway hangUp : (callID: int);
+			oneway micOff : (callerID: int);
+		}		
+		
+		persistencecomponent CollabDB {
+
+		}
+		
+		blcomponent MessageDispatcher{
+			provides pUI :  IMessageDispatcher;  
+			requires toMany rService : IMessageDispatcher;
+			config {
+				deployment 	testEnvironment: boolean
+				startup 	timeOutMs:	 numeric 
+				instancedef minPoolSize: numeric
+				instancedef maxPoolSize: numeric
+			}
+		}
+		
+		
+		blcomponent MicroBloggingService feature MicroBlogging {
+			provides pDispatcher: IMessageDispatcher;
+			provides pService: IMicroBloggingService;
+			config {
+			}
+		}
+		
+		
+		blcomponent ForumService  feature Forum {
+			provides pDispatcher: IMessageDispatcher;
+			provides pService: IForumService;
+			config {
+			}
+		}
+		
+		
+		blcomponent InstantMessagingService feature SynchronousConferencing {
+			provides pDispatcher: IMessageDispatcher;
+			provides pService: IInstantMessagingService;
+			provides audioServices : IAudioService;
+			requires audioCon: IAudioConnection feature Audio; 
+			config {
+			}
+		}
+		
+//		blcomponent AudioService  feature Audio {
+//			provides audioService: IAudioService;
+//			requires audioConnection: IAudioConnection ;
+//			config {
+//			}
+//		}
+		
+		blcomponent TelephoneConnection  feature TelephoneIntegration {
+			provides audioCon: IAudioConnection;
+			config {
+			}
+		}
+		
+		blcomponent VOIPConnection  feature VoiceOverIP {
+			provides audioCon: IAudioConnection;
+			config {
+			}
+		}
+		
+		
+	} 
+
+
+}

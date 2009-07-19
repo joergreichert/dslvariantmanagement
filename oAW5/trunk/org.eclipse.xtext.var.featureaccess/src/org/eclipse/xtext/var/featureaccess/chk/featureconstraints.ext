@@ -1,0 +1,2 @@
+boolean duplicateNamesWithoutFeatureClause( Object candidate, List elements ):
+	JAVA org.eclipse.xtext.var.featureaccess.chk.FeatureAccessConstraintHelper.duplicateNamesWithoutFeatureClause(  java.lang.Object, java.util.List);
