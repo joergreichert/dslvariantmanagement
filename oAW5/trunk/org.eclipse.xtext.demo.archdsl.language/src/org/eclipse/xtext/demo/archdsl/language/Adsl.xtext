@@ -1,4 +1,4 @@
-grammar org.eclipse.xtext.demo.archdsl.language.adsl with org.eclipse.xtext.common.Terminals
+grammar org.eclipse.xtext.demo.archdsl.language.Adsl with org.eclipse.xtext.common.Terminals
 
 generate adsl "http://www.eclipse.org/xtext/demo/archdsl/language/adsl"
 
