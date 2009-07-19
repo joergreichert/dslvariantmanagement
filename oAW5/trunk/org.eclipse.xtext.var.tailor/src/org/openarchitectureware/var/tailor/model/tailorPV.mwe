@@ -25,7 +25,7 @@
 	<!-- TODO must be checked! -->
 	<!-- parse the model -->  <!-- uri="${architectureModelFile}" -->
 	<component class="org.eclipse.xtext.MweReader" uri="platform:/resource/test/model/components/logic.adsl">
-		<register class="org.eclipse.xtext.demo.archdsl.language.adslStandaloneSetup"/>
+		<register class="org.eclipse.xtext.demo.archdsl.language.AdslStandaloneSetup"/>
 	</component>
 
      
