@@ -2,10 +2,12 @@
 «EXTENSION org::openarchitectureware::demo::archdsl::utils»
 
 «EXTENSION org::eclipse::xtend::util::stdlib::io»
- 
+«EXTENSION org::eclipse::xtext::var::featureaccess::ext::utils» 
 «DEFINE root FOR File»
 	«REM»expand the top level system«ENDREM»
-	«EXPAND system FOREACH systems»
+	«IF isFeatureSelected("CollaborationSystemFeatures")»
+		«EXPAND system FOREACH systems»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE system FOR System»
