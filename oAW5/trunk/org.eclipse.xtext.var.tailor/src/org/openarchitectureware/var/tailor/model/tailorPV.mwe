@@ -12,22 +12,10 @@
 		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmeta.PvmetaPackage" />
 	</bean>
 	
-	<!-- can be deleted after migration
-	<bean class="org.openarchitectureware.demo.archdsl.language.MetaModelRegistration"/>
-	
-	
-    <component file="${parserCartridge}">
-        <modelFile value="${architectureModelFile}"/>
-        <outputSlot value="theModel"/>
-    </component> 
-	-->
-	
-	<!-- TODO must be checked! -->
-	<!-- parse the model -->  <!-- uri="${architectureModelFile}" -->
-	<component class="org.eclipse.xtext.MweReader" uri="platform:/resource/test/model/components/logic.adsl">
+	<!-- parse the model -->
+	<component class="org.eclipse.xtext.MweReader" uri="${architectureModelFile}">
 		<register class="org.eclipse.xtext.demo.archdsl.language.AdslStandaloneSetup"/>
 	</component>
-
      
 	<component id="read" class="org.eclipse.emf.mwe.utils.Reader">
 		<useSingleGlobalResourceSet value="true"/>
