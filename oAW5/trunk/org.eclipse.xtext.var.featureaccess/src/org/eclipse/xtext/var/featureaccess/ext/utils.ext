@@ -7,3 +7,5 @@ Collection[String] getAllFeatures(String uri):
 boolean isFeatureClauseTrue( Object featureClause ):
 	JAVA org.eclipse.xtext.var.featureaccess.ext.FeatureSupport.isFeatureClauseTrue(org.eclipse.emf.ecore.EObject);	
 	
+boolean isFeatureSelected( Object featureClause ):
+	JAVA org.eclipse.xtext.var.featureaccess.ext.FeatureSupport.isFeatureSelected(java.lang.String);
