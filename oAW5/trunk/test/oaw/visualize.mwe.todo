@@ -1,0 +1,28 @@
+<workflow>
+
+
+	<property name="file" value="platform:/resource/test/model/components/logic.adsl"/> 
+	
+	<property name="targetDir" value="../test/dot/"/>
+
+	<bean class="org.eclipse.mwe.emf.StandaloneSetup">
+	    <platformUri value=".."/>
+		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmodel.PvmodelPackage" />
+	</bean>
+
+	
+	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner" 
+		directory="${targetDir}"/>
+	
+	<component class="org.eclipse.xtext.MweReader" uri="${file}">
+		<register class="org.eclipse.xtext.demo.archdsl.language.AdslStandaloneSetup"/>
+	</component>
+	
+	<cartridge file="model2dotfile.mwe" 
+		targetDir="${targetDir}"
+		topFunctionCallExpression="adsl2dot::top(model)"
+		inheritAll="true"/>
+	
+	
+
+</workflow>
