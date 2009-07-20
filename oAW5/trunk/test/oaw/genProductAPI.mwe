@@ -1,6 +1,6 @@
 <workflow>
 
-	<property name="adslFile" 		value="components/logic.adsl"/> 
+	<property name="adslFile" 		value="platform:/resource/test/model/components/logic.adsl"/> 
 	<property name="configModelUri" value="platform:/resource/org.eclipse.xtext.demo.fm/orgopenarchitecturewaredemofm/org.openarchitectureware.demo.fm.vdm.xmi"/>
 	<property name="projectName" 	value=""/>
 	<property name="genPath" 		value="generated/gen"/>
