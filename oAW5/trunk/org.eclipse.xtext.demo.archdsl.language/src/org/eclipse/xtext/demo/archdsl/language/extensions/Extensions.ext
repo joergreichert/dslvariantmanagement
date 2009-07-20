@@ -1,0 +1,152 @@
+import adsl;
+import ecore;
+    
+extension org::eclipse::xtext::var::featureaccess::ext::utils reexport;
+    
+// the id a system is it's qualified name; 
+// the id is used for linking
+String id(System this): qualifiedName();
+
+// determines whether a system is empty
+isEmpty(System this): 
+	components.size == 0 && 
+	interfaces.size == 0 && 
+	datatypes.size == 0 
+	;
+
+
+//public function that returns a list of a parent's system by delegating to the 
+//collectParents() recursive implementation function
+Collection[System] allParentSystems(System this): let r = {}: collectParents( r ) -> r;
+//recursive fucntion to collect a system parents into a list
+private Void collectParents(System this, List l): 
+parentSystem() != null ? ( l.add( parentSystem() ) -> parentSystem().collectParents(l) ) : null;
+
+//{ migration issue: Scoping in TMF is different to oAW 4.3.1
+// TODO: use EMFIndex instead of allElements()
+//-----------------------------------------------------------
+/*
+
+//returns all system in the model, incl. those imported from other files
+allSystems(emf::EObject this): allElements().typeSelect(System);
+
+//returns all systems that are not empty, using the predicate defined above
+allNonEmptySystems(emf::EObject this): allSystems().select(n|!n.isEmpty());
+
+//from the perspective of any given systems, the visible other systems are
+//all its parents and all the systems made visibile via a "using"
+allVisibleSystems(System this):  ({this}.addAll( allParentSystems() )).usings.allUsedSystems();
+
+//note that the Using construct does not directly use a "reference to system"
+//as the type of it's system property, because it is possible to have several
+//system objects with the same (qualified) name! Hence, this function returns
+//a collection of all the system objects that are "imported" via any given
+//Using statement
+allUsedSystems( Using this ): allElements().typeSelect(System).select(n|n.qualifiedName() == system );
+ 
+//by default, from any element's perspective, the set of visible 
+//elements is those elements that are visible from the current
+//element's system 
+allVisibleElements(emf::EObject this): 
+"hier wird grade der catchall aufgerufen mit einem "+this.metaType.name ->
+allElements();
+
+//a system's set of visible elements are its own contents and the contents
+//of all visible systems
+allVisibleElements(System this): eAllContents.union(allVisibleSystems().collect(n|n.eAllContents).flatten());
+
+allVisibleElements(Composition this): allElements();
+
+//a Using statement sees all systems in the set of imported models
+allVisibleElements(Using this): allElements().typeSelect(System);
+
+//returns all components
+allComponents(emf::EObject this): allElements().typeSelect(Component);
+
+//returns all data types
+allDataTypes(emf::EObject this): allElements().typeSelect(DataType);
+
+//returns all interfaces
+allInterfaces(emf::EObject this): allElements().typeSelect(Interface);
+
+// find all visible instances of a given oAW::Type from the 
+// perspective of any element
+Collection[emf::EObject] visibleInstancesOfType( emf::EObject ctx, xpand2::Type type ): 
+	allVisibleElements( ctx.system() ).select(e|type.isInstance(e));
+
+*/
+//}
+
+//downcaster for eContainer of a Port
+component(Port this): (Component)eContainer;
+
+// returns the provided ports of a componnet
+providedPorts(Component this): ports.typeSelect(ProvidedPort);
+
+// returns the required ports of a componnet
+requiredPorts(Component this): ports.typeSelect(RequiredPort);
+
+// downcaster for an Attribute's parent
+datatype( Attribute this ): (DataType)eContainer;
+
+// downcaster for an interaction's parent
+Interface interface(MessageInteraction this): eContainer;
+
+// downcaster for a message parameter's parent
+Message message( MessageParameter this ): eContainer;
+
+
+// --------------------------------------------
+
+// is the local name of an element set?
+boolean hasName( emf::EObject this ):
+	localName() != null;
+
+// uses reflection to extract the name property out of any element
+String localName( emf::EObject this ):
+	metaType.getProperty("name")!=null ? metaType.getProperty("name").get(this) : null;
+
+// the qualified name for an element is 
+// based on the system's qualified name
+String qualifiedName( emf::EObject this ):
+	system().qualifiedName()+"."+localName();
+
+// a system's system is itself, for any other
+// element it's the container's system (i.e. re-
+// cursion, but terminated by the system itself)
+System system( emf::EObject this ):
+	if System.isInstance(this) then this else (
+		eContainer != null ? eContainer.system() : null
+	);  
+	
+// returns the parent system of a system, if there is any.
+System parentSystem(System this): 
+	System.isInstance(eContainer) ? ((System)eContainer) : null;
+
+// the qualified name of a system is assembled via recursion
+// over its parents
+String qualifiedName(System this): 
+	parentSystem() != null ? parentSystem().qualifiedName()+"."+name : name;
+
+	
+// helper function that returns all messages from the perspective
+// of any message interaction	 	
+List[Message] messages(MessageInteraction this): {};
+List[Message] messages(OnewayInteraction this): {message};
+List[Message] messages(RequestReplyInteraction this): {request, reply};
+
+	
+literalString( ConfigParamTypeEnum this ):
+	switch {
+		case this == ConfigParamTypeEnum::NUMBER: "numeric"
+		case this == ConfigParamTypeEnum::TEXT: "text"
+		case this == ConfigParamTypeEnum::BOOL: "boolean"
+		default: "can never happen"
+	};
+ 
+
+////// Feature extensions ///////
+//*****************************//
+ 
+ String featureModelUri(emf::EObject this):
+	((File)eRootContainer).featureModel.uri;

@@ -1,0 +1,29 @@
+<workflow>
+
+
+	<property name="file" value="components/logic.adsl"/> 
+	
+	<property name="targetDir" value="../test/dot/"/>
+
+	<bean class="org.eclipse.mwe.emf.StandaloneSetup">
+	    <platformUri value=".."/>
+		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmodel.PvmodelPackage" />
+	</bean>
+
+	
+	<component class="oaw.workflow.common.DirectoryCleaner" 
+		directories="${targetDir}"/>
+	
+	<component file='org/openarchitectureware/demo/archdsl/language/parser/Parser.oaw'>
+    	<modelFile value='${file}'/>
+    	<outputSlot value='model'/>
+	</component>
+	
+	<cartridge file="model2dotfile.oaw" 
+		targetDir="${targetDir}"
+		topFunctionCallExpression="adsl2dot::top(model)"
+		inheritAll="true"/>
+	
+	
+
+</workflow>

@@ -1,0 +1,60 @@
+«IMPORT adsl»
+«EXTENSION org::openarchitectureware::demo::archdsl::utils»
+
+
+«DEFINE javabean FOR Message»
+«FILE classFileName()»
+package «packageName()»;
+
+public class «className()» {
+
+	«EXPAND parameterAndStruff FOREACH parameters»
+
+}
+«ENDFILE» 	
+«ENDDEFINE»
+
+
+«DEFINE future FOR Message»
+«FILE futureClassFileName()»
+package «packageName()»;
+
+public interface «futureClassName()» {
+
+	public boolean isResultAvailable();
+	
+	public «className()» getValue();
+
+}
+«ENDFILE» 	
+«ENDDEFINE»
+
+«DEFINE parameterAndStruff FOR MessageParameter»
+
+	«IF CollectionTypeRef.isInstance(typeref)»
+
+		private «typeref.javaType()» «name»List = «typeref.javaInitializer()»;
+
+		public void add«name.toFirstUpper()»(«typeref.javaType()» value) {
+			this.«name»List.add( value );
+		}
+		
+		public «typeref.javaType()» get«name.toFirstUpper()»() {
+			return this.«name»List;
+		}
+
+	«ELSE»
+
+		private «typeref.javaType()» «name» = «typeref.javaInitializer()»;
+ 
+		public void set«name.toFirstUpper()»(«typeref.javaType()» value) {
+			this.«name» = value;
+		}
+		
+		public «typeref.javaType()» get«name.toFirstUpper()»() {
+			return this.«name»;
+		}
+
+	«ENDIF»
+
+«ENDDEFINE»

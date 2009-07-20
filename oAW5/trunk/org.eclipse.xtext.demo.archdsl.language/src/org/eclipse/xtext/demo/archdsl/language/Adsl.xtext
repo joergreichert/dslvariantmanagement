@@ -1,0 +1,320 @@
+grammar org.eclipse.xtext.demo.archdsl.language.Adsl with org.eclipse.xtext.common.Terminals
+
+generate adsl "http://www.eclipse.org/xtext/demo/archdsl/language/adsl"
+
+// top level element is the file which
+// can import other files and contains 
+// a top level, root namespace
+File: 
+	(featureModel=FeatureModelImport)?
+	(imports+=Import)*
+	(systems+=System |
+	 compositions+=Composition |
+	 topology+=Topology |
+	 deployments+=Deployment |
+	 makeFiles+=MakeFile)*;
+
+MakeFile:
+	"make" name=ID "deployment" deployment=[Deployment] "{"
+		(generatedComponnetAPIs+=ComponentAPIGenerationSpec)*
+	"}";
+
+ComponentAPIGenerationSpec:
+	"component" component=[Component];
+
+Topology:
+	"topology" name=ID "{"
+		(node+=Node)*
+	"}";
+
+Node:
+	AppServerNode | DbServerNode;
+	
+AppServerNode:
+	"appserver" name=ID (clustered?="clustered")?;
+
+DbServerNode:
+	"dbserver" name=ID (clustered?="clustered")?;
+	
+
+Deployment:
+	"deployment" name=ID 
+		"deliverablesystem" deliverableSystem=[Composition]
+		"topology" topology=[Topology] "{"
+		(mappings+=InstanceNodeMapping)*
+	"}";
+	
+InstanceNodeMapping:
+	"map" nodeRef=[Node] "{"
+		(instances+=InstanceRef)*
+	"}";
+		
+InstanceRef:
+	"instance" instance=[Instance];
+	
+
+// an import makes another file accessible
+// the current one          
+Import:
+	"import" importURI=STRING;
+         
+// namespaces are tne primary container of stuff,
+// they can use other namespaces and can be nested 
+System:
+	"system" name=ID (featureClause=FeatureClause)? 
+	  "{"
+		(usings+=Using)*	
+		( subSystems+=System 
+		  | components+=Component 
+		  | datatypes+=DataType
+		  | interfaces+=Interface
+		 )* 
+	"}"; 
+
+// using makes the contents of another system
+// visible in the containing namespace. 
+// note that the Using construct does not directly use a "reference to namespace"
+// as the type of it's namespace property, because it is possible to have several
+// namespace objects with the same (qualified) name! 
+Using:
+	"using" system=QualID ";";	
+	
+// components have names and ports
+Component:
+	UiComponent | BlComponent | PersComponent;
+	
+UiComponent:
+	"uicomponent" name=ID (featureClause=FeatureClause)?
+	"{" 
+		(ports+=Port)*
+		(configuration=ComponentConfiguration)?		
+	"}";
+	
+BlComponent:
+	"blcomponent" name=ID (featureClause=FeatureClause)?
+	"{" 
+		(ports+=Port)*
+		(configuration=ComponentConfiguration)?		
+	"}";
+	
+PersComponent:
+	"persistencecomponent" name=ID (featureClause=FeatureClause)?
+	"{" 
+		(ports+=Port)*
+		(configuration=ComponentConfiguration)?		
+	"}";
+	
+// a port is either a provided port or a required port
+Port:
+	ProvidedPort | RequiredPort;
+
+// provided ports offer interfaces for use by other
+// components. Ports can be mandatory and/or expect 
+// a collection of clients. Ports also have a name.
+ProvidedPort:
+	"provides"
+	(isMandatory?="mandatory")? 
+	(isToMany?="toMany")? 
+	name=ID ":" interface=[Interface|ID] 
+    (featureClause=FeatureClause)? ";";
+		
+// required ports access interfaces provided by other
+// components. Ports can be mandatory and/or connect to
+// a collection of providers. Ports also have a name.
+RequiredPort:
+	"requires" 
+	(isMandatory?="mandatory")? 
+	(isToMany?="toMany")? 
+	name=ID ":" interface=[Interface|ID] 
+	(featureClause=FeatureClause)? ";";
+
+// an interface has a name, and contains a number
+// of message interactions (i.e. messages of different 
+// kinds)
+Interface:
+	"interface" name=ID (featureClause=FeatureClause)? 
+	"{"
+		(interactions+=MessageInteraction)*
+	"}"; 
+	
+// message interactions are either oneways
+// or request/replies
+MessageInteraction:
+	OnewayInteraction | RequestReplyInteraction;
+	
+// oneway interactions have a name and a message
+OnewayInteraction:
+	"oneway" name=ID ":" message=Message 
+	(featureClause=FeatureClause)? ";";
+
+// request/reply has a name and two messages
+RequestReplyInteraction:
+	"rr" name=ID ":" "request" "=" request=Message "reply" "=" reply=Message 
+	(featureClause=FeatureClause)? ";";
+ 	
+// a message is a list of message parameters
+Message:
+	"(" (parameters+=MessageParameter (",")?)* ")";
+	
+// and a message parameter has an ID and a type
+MessageParameter:
+	name=ID ":" typeref=AnyTypeRef (featureClause=FeatureClause)?;	
+
+// data types are either primitive or complex	
+DataType:
+	PrimitiveType | ComplexType;
+
+// primitive types just have a name
+PrimitiveType: 
+	"primitive" name=ID 
+	(featureClause=FeatureClause)? ";";	
+
+// complex types have a name and attributes
+ComplexType: 
+	"struct" name=ID 
+	"{"
+		(attributes+=Attribute)*
+	"}";	
+	 
+// and attribute has a name and a type ref
+Attribute:
+	name=ID ":" typeref=AnyTypeRef 
+	(featureClause=FeatureClause)? ";";	
+	
+// we use the typeref construct as the way to
+// capture type modifers such as collections
+// there are primitive type refs and any type refs	
+DataTypeRef:
+	PrimitiveTypeRef | AnyTypeRef;
+	
+// simple type refs are those without collections...	
+AnyTypeRef:
+	SimpleTypeRef | CollectionTypeRef;
+
+// for reasons of polymorphism, we type the type attribute
+// to DataType, and not primitive type. Compensated via 
+// Constraints and CC
+PrimitiveTypeRef:
+	type=[DataType|ID];  
+	
+// a refernece to a simple type
+SimpleTypeRef:
+	type=[DataType|ID];
+	
+// a collection of any type
+CollectionTypeRef:
+	"collection" type=[DataType|ID] ";";
+	
+	
+
+// a composition is a names collection of 
+// instances and connectors
+Composition:
+	"deliverablesystem" name=ID (featureClause=FeatureClause)? "{"
+		(instances+=Instance |
+		 connectors+=Connector)*
+	"}";
+
+// an instance is an inszance of a component	
+Instance:
+	"instance" name=ID ":" type=[Component]
+		(configuration=InstanceConfiguration)?	
+	 (featureClause=FeatureClause)? ";";	
+
+// a connector connects source ports with target ports
+Connector:
+	"connect" source=InstancePortPair "to" target=InstancePortPair ";";
+
+// references an instance/port tuple
+InstancePortPair:
+	instance=[Instance] "." port=[Port];	
+
+
+ComponentConfiguration:
+	"config" "{" 
+		(params+=ConfigurationParameter)*
+	"}";
+
+
+ConfigurationParameter:
+	valueTime=ValueTimeEnum name=ID ":" type=ConfigParamTypeEnum;
+	 
+InstanceConfiguration:
+	"config" "{" 
+		(settings+=ConfigurationParameterSetting)* 
+	"}";	
+	
+enum ConfigParamTypeEnum:
+	NUMBER = "numeric" | 
+	TEXT = "text" | 
+	BOOL = "boolean"; 	
+	
+ConfigurationParameterSetting:
+	param=[ConfigurationParameter|ID] "=" value=ConfigurationParameterValue;
+	
+ConfigurationParameterValue:	
+	NumericConfigurationParameterValue | 
+	TextConfigurationParameterValue | 
+	BooleanConfigurationParameterValue;
+	
+NumericConfigurationParameterValue:
+	value=INT;
+ 
+TextConfigurationParameterValue:
+	value=STRING;
+ 
+BooleanConfigurationParameterValue:
+	value=BooleanLiteral;
+	
+BooleanLiteral:
+	TrueLiteral | FalseLiteral;
+		
+TrueLiteral: "true";
+
+FalseLiteral: "false";		
+	
+enum ValueTimeEnum:
+    NEVER="never (dummy)"  
+	| INSTANCEDEFINITION="instancedef"
+	| DEPLOYMENT="deployment"
+	| STARTUP="startup"
+	;
+
+	
+// a tokenizer pattern for dot-separated names
+QualID: ID ("." ID)*;
+
+//***************************
+//***   Feature Stuff    ****
+//***************************
+
+FeatureClause:
+	FeatureAndList | FeatureOrList | FeatureExpression | Feature ;
+
+FeatureAndList:
+	"featureAndList" (retained?="retain")? "(" featureList+=ID ("," featureList+=ID)* ")";
+  
+FeatureOrList:  
+	"featureOrList" (retained?="retain")? "(" featureList+=ID ("," featureList+=ID)* ")";
+    
+FeatureExpression:
+	"featureExp" (retained?="retain")? "(" expression=OrExpression ")";     
+    
+Feature:
+	"feature" (retained?="retain")? feature=ID;
+	
+OrExpression:
+	operands+=AndExpression ("or" operands+=AndExpression)*;
+
+AndExpression:
+	operands+=Operand ("and" operands+=Operand)*;
+
+Operand:
+	(isNot?="not")? expression=Atom;
+
+Atom:
+	feature=ID | "(" expression=OrExpression ")";	
+	
+FeatureModelImport:
+	"featuremodel" uri=STRING ";";
+	

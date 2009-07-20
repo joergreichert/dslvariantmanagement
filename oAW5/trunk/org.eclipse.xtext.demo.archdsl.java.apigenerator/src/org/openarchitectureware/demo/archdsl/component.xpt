@@ -1,0 +1,81 @@
+«IMPORT adsl»
+«EXTENSION org::openarchitectureware::demo::archdsl::utils»
+
+«EXTENSION org::eclipse::xtend::util::stdlib::io»
+
+«DEFINE root FOR Component»
+«FILE baseClassFileName()»
+package «packageName()»;
+
+/**
+ * generated base class for the component «name»
+ * you have to manually write a subclass called «implClassName()»
+*/
+public abstract class «baseClassName()» implements org.demo.java.platform.IComponent «FOREACH providedPorts() AS p», «p.providerInterfaceClassName()»«ENDFOREACH» {
+
+	«EXPAND interface::providerInterface FOREACH providedPorts()»
+	«EXPAND interface::requirerInterface FOREACH requiredPorts()»
+	
+	// a "hack" to make Eclipse provide a useful quick fix
+	// to create the required subclass
+	static { 
+		if (false) {
+			«baseClassName()» temp = new «implClassName()»();
+		}
+	}
+
+	// each component instance at runtime knows the name of 
+	// the instance in the model from which it was created	
+	private String instanceID;
+	
+	public void __setInstanceID( String id ) {
+		this.instanceID = id;
+	}
+	
+	public String __getInstanceID() {
+		return instanceID;
+	}
+
+	«FOREACH requiredPorts() AS r»
+	
+		«IF r.isToMany»
+
+			// «r.name» is a toMany port, hence the list
+			private java.util.List<«r.requirerInterfaceClassName()»> «r.name»ProxyList = new java.util.ArrayList<«r.requirerInterfaceClassName()»>();
+
+			// register a new provider for this port (toMany!)
+			public void __add«r.name.toFirstUpper()»Proxy( «r.requirerInterfaceClassName()» proxy ) {
+				this.«r.name»ProxyList.add( proxy );
+			}
+			
+			// returns the index'th of the providers
+			protected «r.requirerInterfaceClassName()» «r.name»( int index ) {
+				return this.«r.name»ProxyList.get(index);
+			} 
+
+			// returns the number of providers registered with the «r.name» toMany port
+			protected int «r.name»Count() {
+				return this.«r.name»ProxyList.size();
+			} 
+		«ELSE»
+		
+			// «r.name» is a to-one port
+			private «r.requirerInterfaceClassName()» «r.name»Proxy = null;
+
+			// register the provider for the «r.name» port
+			public void __set«r.name.toFirstUpper()»Proxy( «r.requirerInterfaceClassName()» proxy ) {
+				this.«r.name»Proxy = proxy;
+			}
+			
+			// return the provider for the «r.name» port
+			protected «r.requirerInterfaceClassName()» «r.name»() {
+				return this.«r.name»Proxy;
+			} 
+
+		«ENDIF»
+		
+	«ENDFOREACH»
+	
+} 
+«ENDFILE»
+«ENDDEFINE»

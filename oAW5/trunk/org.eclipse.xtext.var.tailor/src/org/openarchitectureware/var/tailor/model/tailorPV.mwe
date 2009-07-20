@@ -1,0 +1,62 @@
+<workflow abstract="true">
+
+	<property name="dslPackage"/>
+	<property name="constraintFile"/>
+	<property name="parserCartridge"/>
+	<property name="architectureModelFile"/>
+	
+
+	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup">
+		<platformUri value=".."/> 
+		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmodel.PvmodelPackage" />
+		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmeta.PvmetaPackage" />
+	</bean>
+	
+	<!-- can be deleted after migration
+	<bean class="org.openarchitectureware.demo.archdsl.language.MetaModelRegistration"/>
+	
+	
+    <component file="${parserCartridge}">
+        <modelFile value="${architectureModelFile}"/>
+        <outputSlot value="theModel"/>
+    </component> 
+	-->
+	
+	<!-- TODO must be checked! -->
+	<!-- parse the model -->  <!-- uri="${architectureModelFile}" -->
+	<component class="org.eclipse.xtext.MweReader" uri="platform:/resource/test/model/components/logic.adsl">
+		<register class="org.eclipse.xtext.demo.archdsl.language.AdslStandaloneSetup"/>
+	</component>
+
+     
+	<component id="read" class="org.eclipse.emf.mwe.utils.Reader">
+		<useSingleGlobalResourceSet value="true"/>
+		<uri value="${configurationModelUri}"/>
+		<modelSlot value="configurationModel"/>
+	</component>
+
+    <component class="org.openarchitectureware.var.tailor.model.remover.RemoverComponent">
+    	<architectureModelSlot value="model"/>
+    	<configurationModelSlot value="configurationModel"/>
+        <configurationModelWrapperClass value="org.eclipse.xtext.var.featureaccess.pv.PVConfigurationModelWrapper"/>
+    </component>
+    
+	<component id="checksAfterRemoving" class="org.eclipse.xtend.check.CheckComponent">
+		<metaModel id="mm" class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel" 
+			useSingleGlobalResourceSet="true"/>
+		<checkFile value="${constraintFile}"/>
+		<emfAllChildrenSlot value="model"/>
+	</component>
+	
+	<component class="org.openarchitectureware.var.tailor.model.weaver.WeaverComponent">
+    	<architectureModelSlot value="model"/>
+	</component>
+
+	<component id="checksAfterWeaving" class="org.eclipse.xtend.check.CheckComponent">
+		<metaModel id="mm" class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel" 
+			useSingleGlobalResourceSet="true"/>
+		<checkFile value="${constraintFile}"/>
+		<emfAllChildrenSlot value="model"/>
+	</component>
+	
+</workflow>

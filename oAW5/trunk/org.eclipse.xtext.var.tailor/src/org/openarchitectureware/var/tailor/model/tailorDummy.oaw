@@ -1,0 +1,46 @@
+<workflow abstract="true">
+
+	<property name="dslPackage"/>
+	<property name="constraintFile"/>
+	<property name="parserCartridge"/>
+
+	<bean class="org.eclipse.mwe.emf.StandaloneSetup">
+		<platformUri value=".."/>
+		<registerEcoreFile value="${dslPackage}"/>
+	</bean>
+
+    <component file="${parserCartridge}">
+        <modelFile value="${architectureModelFile}"/>
+        <outputSlot value="architectureModel"/>
+    </component>
+     
+	<component id="read" class="org.openarchitectureware.var.featureaccess.dummy.DummyConfigurationModelLoader">
+		<uri value="${configurationModelUri}"/>
+		<outputSlot value="configurationModel"/>
+	</component>
+
+    <component class="org.openarchitectureware.var.tailor.model.remover.RemoverComponent">
+    	<architectureModelSlot value="architectureModel"/>
+    	<configurationModelSlot value="configurationModel"/>
+        <configurationModelWrapperClass value="org.openarchitectureware.var.featureaccess.dummy.DummyConfigurationModelWrapper"/>
+    </component>
+    
+	<component id="checksAfterRemoving" class="oaw.check.CheckComponent">
+		<metaModel id="mm" class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel" 
+			useSingleGlobalResourceSet="true"/>
+		<checkFile value="${constraintFile}"/>
+		<emfAllChildrenSlot value="architectureModel"/>
+	</component>
+	
+	<component class="org.openarchitectureware.var.tailor.model.weaver.WeaverComponent">
+    	<architectureModelSlot value="architectureModel"/>
+	</component>
+
+	<component id="checksAfterWeaving" class="oaw.check.CheckComponent">
+		<metaModel id="mm" class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel" 
+			useSingleGlobalResourceSet="true"/>
+		<checkFile value="${constraintFile}"/>
+		<emfAllChildrenSlot value="architectureModel"/>
+	</component>
+	
+</workflow>

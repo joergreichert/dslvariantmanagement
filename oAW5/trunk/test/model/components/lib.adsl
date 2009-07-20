@@ -1,0 +1,17 @@
+system lib {
+
+	system types {
+		
+		primitive int;
+		
+		primitive string;
+		
+		struct Date {
+			day : int;
+			month : int;
+			year : int;
+		}
+		
+	}
+
+}

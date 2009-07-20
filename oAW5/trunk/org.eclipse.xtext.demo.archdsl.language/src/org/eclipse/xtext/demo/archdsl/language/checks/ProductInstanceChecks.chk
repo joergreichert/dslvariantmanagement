@@ -1,0 +1,9 @@
+import adsl;
+
+extension org::eclipse::xtend::util::stdlib::naming;
+extension org::eclipse::xtext::var::featureaccess::ext::utils;
+
+context Attribute ERROR "name not unique ("+loc()+")" :
+   ((ComplexType)eContainer).attributes.select(a|a.name == name).size == 1;
+
+    

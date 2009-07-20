@@ -1,0 +1,18 @@
+import '../deliverable/collabsys.adsl'
+
+topology UnserRechenzentrum {
+
+	appserver AS clustered
+	dbserver collabdeployment
+
+}
+
+deployment collabdeployment  
+	deliverablesystem collabsys  
+	topology UnserRechenzentrum {
+		map AS {
+			instance forumUI
+			instance mbUI
+			instance imUI
+		}
+	}
