@@ -5,6 +5,12 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.var.featureaccess.ConfigurationModelWrapper;
+import org.eclipse.xtext.var.featureaccess.FeatureAccessFactory;
+import org.eclipse.xtext.var.featureaccess.FeatureModelWrapper;
+import org.eclipse.xtext.var.featureaccess.TestHelper;
+import org.eclipse.xtext.var.featureaccess.fmp.FMPConfigurationModelWrapper;
+import org.eclipse.xtext.var.featureaccess.fmp.FMPFeatureModelWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,14 +71,13 @@ public class FeatureAccessFactoryTest extends AbstractFeatureAccessTest
 		resourceSet = TestHelper.loadFmpPackages();
 		FeatureModelWrapper wrapper = FeatureAccessFactory
 				.getFeatureModelWrapper(fmpModelURI);
-		fail("Not yet implemented");
+		Assert.assertTrue(wrapper instanceof FMPFeatureModelWrapper);
 	}
 
 	@Test
 	public void testGetConfigurationModelWrapperWhenFmp() {
 		resourceSet = TestHelper.loadFmpPackages();
-		FeatureAccessFactory.getConfigurationModelWrapper(fmpModelURI);
-		fail("Not yet implemented");
+		ConfigurationModelWrapper wrapper = FeatureAccessFactory.getConfigurationModelWrapper(fmpModelURI);
+		Assert.assertTrue(wrapper instanceof FMPConfigurationModelWrapper);
 	}
-
 }

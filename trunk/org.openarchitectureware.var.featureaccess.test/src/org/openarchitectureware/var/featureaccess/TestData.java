@@ -14,7 +14,10 @@ public interface TestData {
 			"TelephoneIntegration", "VoiceOverIP", "VNC", "X11" };
 
 	String[] expectedSelectedFeatureNames = new String[] {
-			
+			// the configuration instance name (in FMP not selected (has also a
+			// different name)
+			"Variant: orgopenarchitecturewaredemofmVariant",
+			// the feature root (in FMP not selected)
 			"CollaborationSystemFeatures", "AccessManagement", "Security",
 			"Authentication", "Encryption", "AsynchronousConferencing",
 			"Forum", "SynchronousConferencing", "Video", "Data", "X11", "Text",
