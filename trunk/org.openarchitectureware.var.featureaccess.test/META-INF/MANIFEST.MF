@@ -6,5 +6,5 @@ Bundle-Version: 1.0.0
 Fragment-Host: org.openarchitectureware.var.featureaccess;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.junit4,
- com.ps.consul.eclipse.ecore;bundle-version="3.0.1"
+ com.ps.consul.eclipse.ecore
 Bundle-ClassPath: .
