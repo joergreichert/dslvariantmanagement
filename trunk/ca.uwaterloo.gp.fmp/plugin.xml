@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+    name = "Feature Modeling Plug-in"
+    id = "ca.uwaterloo.gp.fmp"
+    version = "0.6.6"
+    provider-name = "ca.uwaterloo.gp"
+    class = "ca.uwaterloo.gp.fmp.provider.fmpEditPlugin$Implementation">
+
+  <requires>
+    <import plugin="org.eclipse.core.runtime" />
+    <import plugin="org.eclipse.core.resources" export="true"/>
+    <import plugin="org.eclipse.emf.ecore" export="true"/>
+    <import plugin="org.eclipse.emf.ecore.xmi" export="true"/>
+    <import plugin="org.eclipse.emf.edit" export="true"/>
+    <import plugin="org.eclipse.emf.edit.ui" export="true"/>
+    <import plugin="org.eclipse.ui.ide" export="true"/>
+    <import plugin="org.eclipse.ui"/>
+  </requires>
+
+  <runtime>
+    <library name="externalResources/calc.jar">
+       <export name="*"/>
+    </library>
+    <library name="externalResources/data.jar">
+       <export name="*"/>
+    </library>
+    <library name="externalResources/antlr_2.7.5.1.jar">
+       <export name="*"/>
+    </library>
+    <library name="externalResources/javabdd-1.0b2.jar">
+       <export name="*"/>
+    </library>
+    <library name=".">
+       <export name="*"/>
+    </library>
+  </runtime>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+       uri = "http:///fmp.ecore"
+       class = "ca.uwaterloo.gp.fmp.FmpPackage" />
+  </extension>
+
+  <extension point="org.eclipse.emf.ecore.extension_parser">
+    <parser
+       type="fmp"
+       class="ca.uwaterloo.gp.fmp.util.FmpResourceFactoryImpl" />
+  </extension>
+
+
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id = "ca.uwaterloo.gp.fmp.wizard.ID"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
+      id = "fmp.presentation.FmpModelWizardID"
+      name = "%_UI_FmpModelWizard_label"
+      class = "ca.uwaterloo.gp.fmp.presentation.FmpModelWizard"
+      category = "ca.uwaterloo.gp.fmp.wizard.ID"
+      icon = "icons/full/obj16/FmpModelFile.gif">
+      <description>%_UI_FmpModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "ca.uwaterloo.gp.fmp.FmpEditor"
+        name = "%_UI_FmpEditor_label"
+        icon = "icons/full/obj16/FmpModelFile.gif"
+        extensions = "fmp"
+        class = "ca.uwaterloo.gp.fmp.presentation.FmpEditor" 
+        contributorClass="ca.uwaterloo.gp.fmp.presentation.FmpActionBarContributor" >
+    </editor>
+  </extension>
+  <extension
+        point="org.eclipse.ui.views">
+     <category
+           name="%category.name.0"
+           id="ca.uwaterloo.gp.fmp"/>
+     <view
+           class="ca.uwaterloo.gp.fmp.presentation.PropertiesView"
+           icon="icons/full/ConfigurationView.gif"
+           category="ca.uwaterloo.gp.fmp"
+           name="%view.name.0"
+           id="ca.uwaterloo.gp.fmp.PropertiesView"/>
+     <view
+           class="ca.uwaterloo.gp.fmp.presentation.FeatureComparisonView"
+           icon="icons/full/ConfigurationView.gif"
+           category="ca.uwaterloo.gp.fmp"
+           name="%view.name.1"
+           id="ca.uwaterloo.gp.fmp.views.FeatureComparisonView"/>
+     <view
+           class="ca.uwaterloo.gp.fmp.presentation.ConstraintsView"
+           icon="icons/full/ConstraintsView.gif"
+           category="ca.uwaterloo.gp.fmp"
+           name="%view.name.2"
+           id="ca.uwaterloo.gp.fmp.ConstraintsView"/>
+  </extension>
+  <extension
+        point="org.eclipse.ui.editorActions">
+     <editorContribution
+           targetID="ca.uwaterloo.gp.fmp.FmpEditorID"
+           id="ca.uwaterloo.gp.fmp.FmpEditorActionsID">
+        <action
+              disabledIcon="icons/full/ShowAnnotationsAction.gif"
+              toolbarPath="additions"
+              label="%action.label.0"
+              tooltip="%action.tooltip.0"
+              icon="icons/full/ShowAnnotationsAction.gif"
+              class="ca.uwaterloo.gp.fmp.presentation.ToggleViewModeAction"
+              style="push"
+              id="ca.uwaterloo.gp.fmp.ToggleViewModeActionID"/>
+     </editorContribution>
+  </extension>
+</plugin>

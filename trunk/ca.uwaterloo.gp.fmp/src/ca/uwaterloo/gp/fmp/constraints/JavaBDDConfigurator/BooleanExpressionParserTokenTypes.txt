@@ -1,0 +1,15 @@
+// $ANTLR 2.7.5 (20050201): t5.g -> BooleanExpressionParserTokenTypes.txt$
+BooleanExpressionParser    // output token vocab name
+AND="and"=4
+OR="or"=5
+NOT="not"=6
+TRUE="true"=7
+FALSE="false"=8
+FORALL="for all"=9
+EXISTS="exists"=10
+EQUALS=11
+IMPLIES=12
+LPAREN=13
+RPAREN=14
+IDENT=15
+WS=16
