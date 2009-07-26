@@ -11,10 +11,12 @@ public class FeatureAccessFactory {
 	static {
 		
 		feature.put( ".xfm.xmi", "org.openarchitectureware.var.featureaccess.pv.PVFeatureModelWrapper" );
+		feature.put( ".fmp", "org.openarchitectureware.var.featureaccess.fmp.FMPFeatureModelWrapper" );
 		feature.put( ".ftxt", "org.openarchitectureware.var.featureaccess.dummy.DummyFeatureModelWrapper" );
 
-		config.put( ".vfm.xmi", "org.openarchitectureware.var.featureaccess.pv.PVConfigurationModelWrapper" );
+		config.put( ".vdm.xmi", "org.openarchitectureware.var.featureaccess.pv.PVConfigurationModelWrapper" );
 		config.put( ".ctxt", "org.openarchitectureware.var.featureaccess.dummy.DummyConfigurationModelWrapper" );
+		config.put( ".fmp", "org.openarchitectureware.var.featureaccess.fmp.FMPConfigurationModelWrapper" );
 	}
 	
 	
@@ -32,10 +34,10 @@ public class FeatureAccessFactory {
 	}
 	
 	public static ConfigurationModelWrapper getConfigurationModelWrapper( String filename ) {
-		for (String f: feature.keySet()) {
+		for (String f: config.keySet()) {
 			if ( filename.endsWith(f)) {
 				try {
-					return (ConfigurationModelWrapper)Class.forName(feature.get(f)).newInstance();
+					return (ConfigurationModelWrapper)Class.forName(config.get(f)).newInstance();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
