@@ -1,19 +1,13 @@
 package org.openarchitectureware.var.featureaccess;
 
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.var.featureaccess.ConfigurationModelWrapper;
-import org.eclipse.xtext.var.featureaccess.FeatureAccessFactory;
-import org.eclipse.xtext.var.featureaccess.FeatureModelWrapper;
-import org.eclipse.xtext.var.featureaccess.TestHelper;
-import org.eclipse.xtext.var.featureaccess.fmp.FMPConfigurationModelWrapper;
-import org.eclipse.xtext.var.featureaccess.fmp.FMPFeatureModelWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openarchitectureware.var.featureaccess.fmp.FMPConfigurationModelWrapper;
+import org.openarchitectureware.var.featureaccess.fmp.FMPFeatureModelWrapper;
 import org.openarchitectureware.var.featureaccess.pv.PVConfigurationModelWrapper;
 import org.openarchitectureware.var.featureaccess.pv.PVFeatureModelWrapper;
 
