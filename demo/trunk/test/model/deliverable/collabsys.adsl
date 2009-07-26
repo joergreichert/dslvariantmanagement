@@ -1,4 +1,4 @@
-featuremodel "platform:/resource/org.openarchitectureware.demo.fm/org.openarchitectureware.demo.fm.xfm.xmi";
+featuremodel "platform:/resource/org.openarchitectureware.demo.fmp/model/example.fmp";
 
 import 'components/logic.adsl'
 import 'components/ui.adsl'
