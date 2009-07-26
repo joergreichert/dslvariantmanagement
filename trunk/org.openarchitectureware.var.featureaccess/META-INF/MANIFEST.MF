@@ -3,21 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: org.openarchitectureware.var.featureaccess
 Bundle-SymbolicName: org.openarchitectureware.var.featureaccess;singleton:=true
 Bundle-Version: 1.0.0
-Require-Bundle:  org.openarchitectureware.dependencies
-Export-Package: ca.uwaterloo.gp.fmp,
- ca.uwaterloo.gp.fmp.constraints,
- ca.uwaterloo.gp.fmp.constraints.JavaBDDConfigurator,
- ca.uwaterloo.gp.fmp.constraints.ui,
- ca.uwaterloo.gp.fmp.constraints.xpath,
- ca.uwaterloo.gp.fmp.impl,
- ca.uwaterloo.gp.fmp.presentation,
- ca.uwaterloo.gp.fmp.provider,
- ca.uwaterloo.gp.fmp.provider.action,
- ca.uwaterloo.gp.fmp.provider.command,
- ca.uwaterloo.gp.fmp.provider.nonmodel,
- ca.uwaterloo.gp.fmp.system,
- ca.uwaterloo.gp.fmp.system.drillDown,
- ca.uwaterloo.gp.fmp.util,
+Require-Bundle:  org.openarchitectureware.dependencies,
+ ca.uwaterloo.gp.fmp
+Export-Package: 
  org.openarchitectureware.var.featureaccess,
  org.openarchitectureware.var.featureaccess.chk,
  org.openarchitectureware.var.featureaccess.dummy,
@@ -25,5 +13,3 @@ Export-Package: ca.uwaterloo.gp.fmp,
  org.openarchitectureware.var.featureaccess.fmp,
  org.openarchitectureware.var.featureaccess.pv
 Bundle-RequiredExecutionEnvironment: J2SE-1.5 
-Bundle-ClassPath: lib/ca.uwaterloo.gp.fmp_0.6.6_E3.4.1.jar,
- .
