@@ -9,6 +9,7 @@ public abstract class FeatureDependentComponent extends AbstractWorkflowComponen
 	
 	protected String configurationModelSlot;
 	private String configWrapperClass;
+	private String configModelUri;
 
 	public void setConfigurationModelSlot( String slotname ) {
 		configurationModelSlot = slotname;
@@ -18,6 +19,10 @@ public abstract class FeatureDependentComponent extends AbstractWorkflowComponen
 		configWrapperClass = cn;
 	}
 	
+	public void setConfigurationModelUri( String cURI ) {
+		configModelUri = cURI;
+	}
+	
 	@Override
 	protected void checkConfigurationInternal(Issues issues) {
 		if ( configurationModelSlot == null ) issues.addWarning("configurationModelSlot not specified");
@@ -25,7 +30,13 @@ public abstract class FeatureDependentComponent extends AbstractWorkflowComponen
 	
 	protected ConfigurationModelWrapper getConfigurationModel(WorkflowContext ctx, Issues issues) {
 		try {
-			ConfigurationModelWrapper w = (ConfigurationModelWrapper) Class.forName(configWrapperClass).newInstance();
+			ConfigurationModelWrapper w;
+			if(configWrapperClass != null){
+				w = (ConfigurationModelWrapper) Class.forName(configWrapperClass).newInstance();
+			} else {
+				if(configModelUri == null) throw new Exception();
+				w = FeatureAccessFactory.getConfigurationModelWrapper(configModelUri);
+			}
 			if ( configurationModelSlot != null ) {
 				Object configurationModel = ctx.get(configurationModelSlot);
 				w.setConfigurationData( configurationModel );
