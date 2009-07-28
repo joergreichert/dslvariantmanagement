@@ -20,10 +20,10 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.emf.ecore,
  org.eclipse.emf.common,
  org.antlr.runtime,
- org.eclipse.xtext.var.featureaccess
+ org.eclipse.xtext.var.featureaccess,
+ org.eclipse.xtend
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.xtext.demo.archdsl.language,
- org.eclipse.xtext.demo.archdsl.language.checks,
  org.eclipse.xtext.demo.archdsl.language.extensions,
  org.eclipse.xtext.demo.archdsl.language.services,
  org.eclipse.xtext.demo.archdsl.language.adsl,
@@ -32,3 +32,4 @@ Export-Package: org.eclipse.xtext.demo.archdsl.language,
  org.eclipse.xtext.demo.archdsl.language.parseTreeConstruction,
  org.eclipse.xtext.demo.archdsl.language.parser.antlr,
  org.eclipse.xtext.demo.archdsl.language.validation
+

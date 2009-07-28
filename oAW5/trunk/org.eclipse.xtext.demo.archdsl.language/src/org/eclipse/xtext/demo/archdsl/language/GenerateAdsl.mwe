@@ -40,6 +40,9 @@
 			<fragment class="org.eclipse.xtext.generator.validation.JavaValidatorFragment">
                 <composedCheck value="org.eclipse.xtext.validation.ImportUriValidator"/>
             </fragment>
+            
+            <!-- a check based validation component -->
+			<fragment class="org.eclipse.xtext.generator.validation.CheckFragment"/>
 			
             
 			<!-- scoping API -->
