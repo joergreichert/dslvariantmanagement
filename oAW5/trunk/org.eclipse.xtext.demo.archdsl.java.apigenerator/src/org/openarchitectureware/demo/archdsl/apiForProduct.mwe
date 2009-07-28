@@ -13,7 +13,7 @@
 	<component file="org/openarchitectureware/var/tailor/model/tailorPV.mwe"
 		architectureModelFile="${adslFile}"
 		configurationModelUri="${configModelUri}"		
-		constraintFile="org::eclipse::xtext::demo::archdsl::language::checks::Checks" />
+		constraintFile="org::eclipse::xtext::demo::archdsl::language::validation::AdslFastChecks" />
 		/>
 
 
