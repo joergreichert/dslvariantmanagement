@@ -17,4 +17,4 @@ Require-Bundle: org.eclipse.xtext.demo.archdsl.language;visibility:=reexport,
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.xtext.demo.archdsl.language.contentassist,
  org.eclipse.xtext.demo.archdsl.language.contentassist.antlr
-Bundle-Activator: org.eclipse.xtext.demo.archdsl.language.internal.adslActivator
+Bundle-Activator: org.eclipse.xtext.demo.archdsl.language.internal.AdslActivator
