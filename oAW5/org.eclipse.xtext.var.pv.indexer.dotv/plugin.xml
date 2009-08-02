@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="com.ps.consul.eclipse.relationsbuilder.Indexer">
+      <indexer
+            class="org.eclipse.xtext.var.pv.relbuilderdotv.DotVFileIndexer"
+            extensions="v"
+            id="org.openarchitectureware.var.pv.relbuilderdotv.indexer1"
+            name="dotvindexer">
+      </indexer>
+   </extension>
+
+</plugin>
