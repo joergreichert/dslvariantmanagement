@@ -31,5 +31,6 @@ Export-Package: org.eclipse.xtext.demo.archdsl.language,
  org.eclipse.xtext.demo.archdsl.language.adsl.util,
  org.eclipse.xtext.demo.archdsl.language.parseTreeConstruction,
  org.eclipse.xtext.demo.archdsl.language.parser.antlr,
- org.eclipse.xtext.demo.archdsl.language.validation
+ org.eclipse.xtext.demo.archdsl.language.validation,
+ org.eclipse.xtext.demo.archdsl.language.helper
 
