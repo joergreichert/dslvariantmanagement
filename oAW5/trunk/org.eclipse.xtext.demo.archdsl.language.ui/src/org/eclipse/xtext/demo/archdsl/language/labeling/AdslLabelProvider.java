@@ -3,6 +3,7 @@
 */
 package org.eclipse.xtext.demo.archdsl.language.labeling;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.core.DefaultLabelProvider;
 
 /**
@@ -22,4 +23,9 @@ public class AdslLabelProvider extends DefaultLabelProvider {
     }
 	 
 */
+  
+    String image( EObject ele ){
+      return ele.eClass().getName().toLowerCase()+".gif";
+    }
+  
 }
