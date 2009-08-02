@@ -20,7 +20,7 @@
 	<component class="org.eclipse.xtend.check.CheckComponent">
 	       <metaModel id="mm" class="org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel"/>
 	       <emfAllChildrenSlot value="model"/>
-		   <checkFile value="org::eclipse::xtext::demo::archdsl::language::checks::ProductInstanceChecks"/>
+		   <checkFile value="org::eclipse::xtext::demo::archdsl::language::validation::ProductInstanceChecks"/>
 	</component>
 
 	<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner" 
