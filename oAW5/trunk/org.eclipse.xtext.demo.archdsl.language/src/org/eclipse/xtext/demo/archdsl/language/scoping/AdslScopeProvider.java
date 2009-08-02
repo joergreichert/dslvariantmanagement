@@ -3,7 +3,21 @@
  */
 package org.eclipse.xtext.demo.archdsl.language.scoping;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.demo.archdsl.language.adsl.Component;
+import org.eclipse.xtext.demo.archdsl.language.adsl.Connector;
+import org.eclipse.xtext.demo.archdsl.language.adsl.InstancePortPair;
+import org.eclipse.xtext.demo.archdsl.language.adsl.Port;
+import org.eclipse.xtext.demo.archdsl.language.adsl.ProvidedPort;
+import org.eclipse.xtext.demo.archdsl.language.adsl.RequiredPort;
+import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.IScopedElement;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.eclipse.xtext.scoping.impl.ScopedElement;
+import org.eclipse.xtext.scoping.impl.SimpleScope;
 
 /**
  * This class contains custom scoping description.
@@ -13,5 +27,46 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
  *
  */
 public class AdslScopeProvider extends AbstractDeclarativeScopeProvider {
+  
+  IScope scope_InstancePortPair_port(InstancePortPair ctx, EReference ref)
+  {
+      if(ctx.getInstance() == null )
+          return IScope.NULLSCOPE;
+      else{
+        Connector con = (Connector) ctx.eContainer();
+        if( con.getSource().equals(ctx) )
+          return new SimpleScope(IScope.NULLSCOPE, getRPorts( ctx.getInstance().getType() ) );
+        else if( con.getTarget().equals(ctx) ) 
+          return new SimpleScope(IScope.NULLSCOPE, getPPorts( ctx.getInstance().getType() ) );
+        else
+          try {
+            throw new Exception("InstancePortPair is either in source of Connector nor in target of Connector");
+          } catch (Exception e) {
+            e.printStackTrace();
+            return IScope.NULLSCOPE;
+          }
+      }
+
+  }
+  
+  private Iterable<IScopedElement> getRPorts(Component comp) {
+    List<IScopedElement> result = new ArrayList<IScopedElement>();
+    for (Port f : comp.getPorts()){
+        if (f instanceof RequiredPort)
+          result.add(ScopedElement.create(f.getName(), f));
+    }
+    return result;
+  } 
+  
+  private Iterable<IScopedElement> getPPorts(Component comp) {
+    List<IScopedElement> result = new ArrayList<IScopedElement>();
+    for (Port f : comp.getPorts()){
+        if (f instanceof ProvidedPort)
+          result.add(ScopedElement.create(f.getName(), f));
+    }
+    return result;
+  } 
+
+
 
 }
