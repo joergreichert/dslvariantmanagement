@@ -2,7 +2,7 @@
 
 	<property name="dslPackage"/>
 	<property name="constraintFile"/>
-	<property name="parserCartridge"/>
+	<property name="standaloneSetup"/>
 	<property name="architectureModelFile"/>
 	
 
@@ -14,7 +14,7 @@
 	
 	<!-- parse the model -->
 	<component class="org.eclipse.xtext.MweReader" uri="${architectureModelFile}">
-		<register class="org.eclipse.xtext.demo.archdsl.language.AdslStandaloneSetup"/>
+		<register class="${standaloneSetup}"/>
 	</component>
      
 	<component id="read" class="org.eclipse.emf.mwe.utils.Reader">
