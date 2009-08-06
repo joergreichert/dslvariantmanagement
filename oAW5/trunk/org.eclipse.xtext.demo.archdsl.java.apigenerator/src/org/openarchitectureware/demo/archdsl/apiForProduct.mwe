@@ -11,6 +11,7 @@
 	
 	
 	<component file="org/openarchitectureware/var/tailor/model/tailorPV.mwe"
+		standaloneSetup="org.eclipse.xtext.demo.archdsl.language.AdslStandaloneSetup"
 		architectureModelFile="${adslFile}"
 		configurationModelUri="${configModelUri}"		
 		constraintFile="org::eclipse::xtext::demo::archdsl::language::validation::AdslFastChecks" />
