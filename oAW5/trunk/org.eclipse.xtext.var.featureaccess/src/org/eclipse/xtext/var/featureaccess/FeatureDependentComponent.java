@@ -33,6 +33,7 @@ public abstract class FeatureDependentComponent extends AbstractWorkflowComponen
 			return w;
 		} catch (Exception e) {
 			issues.addError("cannot instantiate class "+configWrapperClass);
+			issues.addError(e.getMessage());
 		}
 		return null;
 	}

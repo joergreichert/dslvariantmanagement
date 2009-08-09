@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.mwe.core.WorkflowInterruptedException;
 import org.eclipse.xtext.var.featureaccess.ConfigurationModelWrapper;
 import org.eclipse.xtext.var.featureaccess.FeatureModelWrapper;
 import org.eclipse.xtend.util.stdlib.DynamicEcoreHelper;
@@ -27,5 +28,11 @@ public class PVConfigurationModelWrapper extends ConfigurationModelWrapper {
 		}
 		return selectedFeatureNames;
 	}
+	
+	public void setConfigurationData( Object data ) {
+		if( ! data.getClass().getSimpleName().equals("ModelImpl"))
+			throw new WorkflowInterruptedException("the file which is defined by configurationModelUri is no pv config model!");
+		configuration = data;
+	}	
 	
 }
