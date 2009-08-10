@@ -7,7 +7,7 @@ Bundle-Activator: org.eclipse.xtext.var.pv.relbuilderadsl.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources;bundle-version="3.4.0",
- com.ps.consul.eclipse.relationsbuilder
+ com.ps.consul.eclipse.relationsbuilder;bundle-version="3.0.4"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.xtext.var.pv.relbuilderadsl
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
