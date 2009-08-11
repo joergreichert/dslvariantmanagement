@@ -12,8 +12,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.openarchitectureware.var.dotvbuilder.DotVBuilder;
-import org.openarchitectureware.var.dotvbuilder.PreferenceConstants;
+import org.eclipse.xtext.var.dotvbuilder.DotVBuilder;
+import org.eclipse.xtext.var.dotvbuilder.PreferenceConstants;
 
 import com.ps.consul.eclipse.relationsbuilder.IIndexer;
 import com.ps.consul.eclipse.relationsbuilder.ITargetCache;
