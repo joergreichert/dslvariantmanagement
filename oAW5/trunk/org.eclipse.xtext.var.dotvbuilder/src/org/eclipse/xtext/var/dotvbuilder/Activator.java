@@ -2,7 +2,7 @@
  * Copyright (c) pure-systems GmbH 
  * All rights reserved. 
  **************************************************/
-package org.openarchitectureware.var.dotvbuilder;
+package org.eclipse.xtext.var.dotvbuilder;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -13,7 +13,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.openarchitectureware.var.dotvbuilder";
+	public static final String PLUGIN_ID = "org.eclipse.xtext.var.dotvbuilder";
 
 	// The shared instance
 	private static Activator plugin;

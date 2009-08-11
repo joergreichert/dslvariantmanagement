@@ -1,4 +1,4 @@
-package org.openarchitectureware.var.dotvbuilder;
+package org.eclipse.xtext.var.dotvbuilder;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package org.openarchitectureware.var.dotvbuilder;
+package org.eclipse.xtext.var.dotvbuilder;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
@@ -8,7 +8,7 @@ import org.eclipse.core.runtime.CoreException;
 
 public class DotVNature implements IProjectNature {
 
-	public static final String NATURE_ID = "org.openarchitectureware.var.dotvbuilder.dotVNature";
+	public static final String NATURE_ID = "org.eclipse.xtext.var.dotvbuilder.dotVNature";
 
 	private IProject project;
 

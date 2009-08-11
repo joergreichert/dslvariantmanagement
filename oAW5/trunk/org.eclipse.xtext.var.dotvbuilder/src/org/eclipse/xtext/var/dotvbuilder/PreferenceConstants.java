@@ -1,4 +1,4 @@
-package org.openarchitectureware.var.dotvbuilder;
+package org.eclipse.xtext.var.dotvbuilder;
 
 /**
  * Constant definitions for plug-in preferences

@@ -1,4 +1,4 @@
-package org.openarchitectureware.var.dotvbuilder;
+package org.eclipse.xtext.var.dotvbuilder;
 
 import java.util.Map;
 
@@ -17,8 +17,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
-import org.openarchitectureware.var.dotvbuilder.Activator;
-import org.openarchitectureware.var.dotvbuilder.properties.PropertyConstants;
+import org.eclipse.xtext.var.dotvbuilder.Activator;
+import org.eclipse.xtext.var.dotvbuilder.properties.PropertyConstants;
 
 public class DotVBuilder extends IncrementalProjectBuilder {
 
@@ -50,9 +50,9 @@ public class DotVBuilder extends IncrementalProjectBuilder {
 		}
 	}
 
-	public static final String BUILDER_ID = "org.openarchitectureware.var.dotvbuilder.dotVBuilder";
+	public static final String BUILDER_ID = "org.eclipse.xtext.var.dotvbuilder.dotVBuilder";
 
-	private static final String MARKER_TYPE = "org.openarchitectureware.var.dotvbuilder.xmlProblem";
+	private static final String MARKER_TYPE = "org.eclipse.xtext.var.dotvbuilder.xmlProblem";
 
 	/**
 	 * @param file

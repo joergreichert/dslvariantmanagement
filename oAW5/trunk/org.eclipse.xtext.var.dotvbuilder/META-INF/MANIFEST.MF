@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.openarchitectureware.var.dotvbuilder
+Bundle-Name: org.eclipse.xtext.var.dotvbuilder
 Bundle-SymbolicName: org.eclipse.xtext.var.dotvbuilder;singleton:=true
 Bundle-Version: 1.0.0
 Require-Bundle: 
@@ -16,10 +16,10 @@ Require-Bundle:
  org.eclipse.ui.ide;bundle-version="3.4.0",
  org.eclipse.ui,
  org.antlr.runtime
-Export-Package: org.openarchitectureware.var.dotvbuilder,
- org.openarchitectureware.var.dotvbuilder.preferences,
- org.openarchitectureware.var.dotvbuilder.properties
-Bundle-Activator: org.openarchitectureware.var.dotvbuilder.Activator
+Export-Package: org.eclipse.xtext.var.dotvbuilder,
+ org.eclipse.xtext.var.dotvbuilder.preferences,
+ org.eclipse.xtext.var.dotvbuilder.properties
+Bundle-Activator: org.eclipse.xtext.var.dotvbuilder.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: org.eclipse.core.resources,

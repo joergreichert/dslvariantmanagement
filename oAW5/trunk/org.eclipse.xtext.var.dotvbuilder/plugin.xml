@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin
-   id="org.openarchitectureware.var.dotvbuilder"
+   id="org.eclipse.xtext.var.dotvbuilder"
    name="DotVRelBuilder"
    version="1.0.0"
    provider-name="ample.net"
-   class="org.openarchitectureware.var.dotvbuilder.Activator">
+   class="org.eclipse.xtext.var.dotvbuilder.Activator">
 
    <runtime>
       <library name="relationsbuilder.jar">
@@ -35,7 +35,7 @@
       <builder
             hasNature="true">
          <run
-               class="org.openarchitectureware.var.dotvbuilder.DotVBuilder">
+               class="org.eclipse.xtext.var.dotvbuilder.DotVBuilder">
          </run>
       </builder>
    </extension>
@@ -45,11 +45,11 @@
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
-               class="org.openarchitectureware.var.dotvbuilder.DotVNature">
+               class="org.eclipse.xtext.var.dotvbuilder.DotVNature">
          </run>
       </runtime>
       <builder
-            id="org.openarchitectureware.var.dotvbuilder.dotVBuilder">
+            id="org.eclipse.xtext.var.dotvbuilder.dotVBuilder">
       </builder>
    </extension>
    <extension
@@ -60,9 +60,9 @@
             nameFilter="*"
             objectClass="org.eclipse.core.resources.IProject">
          <action
-               class="org.openarchitectureware.var.dotvbuilder.ToggleNatureAction"
+               class="org.eclipse.xtext.var.dotvbuilder.ToggleNatureAction"
                enablesFor="+"
-               id="org.openarchitectureware.var.dotvbuilder.addRemoveNatureAction"
+               id="org.eclipse.xtext.var.dotvbuilder.addRemoveNatureAction"
                label="Add/Remove DotV Nature"
                menubarPath="additions">
          </action>
@@ -82,29 +82,29 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="org.openarchitectureware.var.dotvbuilder.preferences.DotVBuilderPreferencePage"
-            id="org.openarchitectureware.var.dotvbuilder.preferences.DotVBuilderPreferencePage"
+            class="org.eclipse.xtext.var.dotvbuilder.preferences.DotVBuilderPreferencePage"
+            id="org.eclipse.xtext.var.dotvbuilder.preferences.DotVBuilderPreferencePage"
             name="DotVBuilder">
       </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="org.openarchitectureware.var.dotvbuilder.preferences.PreferenceInitializer">
+            class="org.eclipse.xtext.var.dotvbuilder.preferences.PreferenceInitializer">
       </initializer>
    </extension>
    <extension
          point="org.eclipse.ui.propertyPages">
       <page
-            class="org.openarchitectureware.var.dotvbuilder.properties.DotVPropertyPage"
-            id="org.openarchitectureware.var.dotvbuilder..properties.samplePropertyPage"
+            class="org.eclipse.xtext.var.dotvbuilder.properties.DotVPropertyPage"
+            id="org.eclipse.xtext.var.dotvbuilder.properties.samplePropertyPage"
             name="DotV">
          <enabledWhen>
             <adapt
                   type="org.eclipse.core.resources.IProject">
                <test
                      property="org.eclipse.core.resources.projectNature"
-                     value="org.openarchitectureware.var.dotvbuilder.dotVNature">
+                     value="org.eclipse.xtext.var.dotvbuilder.dotVNature">
                </test>
             </adapt>
          </enabledWhen>
