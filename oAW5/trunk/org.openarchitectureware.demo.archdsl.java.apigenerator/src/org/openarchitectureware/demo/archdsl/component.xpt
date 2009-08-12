@@ -11,7 +11,7 @@ package «packageName()»;
  * generated base class for the component «name»
  * you have to manually write a subclass called «implClassName()»
 */
-public abstract class «baseClassName()» implements org.demo.java.platform.IComponent «FOREACH providedPorts() AS p», «p.providerInterfaceClassName()»«ENDFOREACH» {
+public abstract class «baseClassName()» implements org.openarchitectureware.demo.java.platform.IComponent «FOREACH providedPorts() AS p», «p.providerInterfaceClassName()»«ENDFOREACH» {
 
 	«EXPAND interface::providerInterface FOREACH providedPorts()»
 	«EXPAND interface::requirerInterface FOREACH requiredPorts()»
