@@ -1,9 +1,0 @@
-import "deliverable/topo.adsl"
-import "components/logic.adsl"
-
-
-make markusDefault deployment collabdeployment {
-	
-	component CollabDB
-	
-}
