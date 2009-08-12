@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Relbuilderdotv Plug-in
+Bundle-SymbolicName: org.openarchitectureware.var.pv.indexer.dotv;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.openarchitectureware.var.pv.relbuilderdotv.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.ps.consul.eclipse.relationsbuilder,
+ org.eclipse.core.resources;bundle-version="3.4.0",
+ org.openarchitectureware.var.dotvbuilder;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

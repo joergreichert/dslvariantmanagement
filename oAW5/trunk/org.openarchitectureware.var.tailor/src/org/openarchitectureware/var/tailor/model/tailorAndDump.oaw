@@ -1,0 +1,19 @@
+<workflow abstract="true">
+
+	<property name="dslPackage"/>
+	<property name="constraintFile"/>	
+	<property name="parserCartridge"/>	
+	
+	
+	<component file="net/ample/adsl/tailor/model/tailor.oaw" inheritAll="true"/>
+	
+	<component id="write" class="org.eclipse.mwe.emf.Writer">
+		<useSingleGlobalResourceSet value="true"/>
+		<cloneSlotContents value="true"/>
+		<modelSlot value="architectureModel"/>
+		<uri value="${resultModelUri}"/>	
+	</component>
+
+
+	
+</workflow>

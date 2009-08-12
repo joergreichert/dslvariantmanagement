@@ -1,0 +1,35 @@
+«IMPORT adsl»
+«EXTENSION org::openarchitectureware::demo::archdsl::utils»
+
+«EXTENSION org::eclipse::xtend::util::stdlib::io»
+«EXTENSION org::openarchitectureware::var::featureaccess::ext::utils» 
+«DEFINE root FOR File»
+	«REM»expand the top level system«ENDREM»
+	«IF isFeatureSelected("CollaborationSystemFeatures")» 
+		«EXPAND system FOREACH systems»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE system FOR System»
+	
+	«REM»the content of the namespace, see below«ENDREM»
+	«EXPAND content»
+
+	«REM»recursive call for all children«ENDREM»
+	«EXPAND system FOREACH subSystems»
+
+	«REM»delegater to all used namespaces«ENDREM»
+	«REM» //TODO use EMFIndex
+	«EXPAND system FOREACH usings.allUsedSystems()»
+	«ENDREM»
+«ENDDEFINE»
+
+«REM»
+contents are data types and components
+interfaces etc. are delegated from 
+componnets
+«ENDREM»
+«DEFINE content FOR System»
+	«EXPAND data::datatype FOREACH datatypes»
+	«EXPAND component::root FOREACH components»
+«ENDDEFINE» 

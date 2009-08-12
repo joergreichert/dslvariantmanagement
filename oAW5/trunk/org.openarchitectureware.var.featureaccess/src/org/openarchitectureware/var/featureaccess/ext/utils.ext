@@ -1,0 +1,11 @@
+import ecore;
+import adsl;
+
+Collection[String] getAllFeatures(String uri):
+	JAVA org.openarchitectureware.var.featureaccess.ext.FeatureSupport.getAllFeatures(java.lang.String);
+	
+boolean isFeatureClauseTrue( Object featureClause ):
+	JAVA org.openarchitectureware.var.featureaccess.ext.FeatureSupport.isFeatureClauseTrue(org.eclipse.emf.ecore.EObject);	
+	
+boolean isFeatureSelected( Object featureClause ):
+	JAVA org.openarchitectureware.var.featureaccess.ext.FeatureSupport.isFeatureSelected(java.lang.String);

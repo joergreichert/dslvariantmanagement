@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Indexer
+Bundle-SymbolicName: org.openarchitectureware.var.pv.indexer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.openarchitectureware.var.pv.indexer.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.ps.consul.eclipse.relationsbuilder;bundle-version="3.0.4",
+ org.eclipse.core.resources;bundle-version="3.5.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.openarchitectureware.var.pv.indexer

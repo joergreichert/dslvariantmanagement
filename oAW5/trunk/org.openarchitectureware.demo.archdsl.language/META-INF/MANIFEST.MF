@@ -1,0 +1,36 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.openarchitectureware.demo.archdsl.language
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0
+Bundle-SymbolicName: org.openarchitectureware.demo.archdsl.language; singleton:=true
+Eclipse-RegisterBuddy: org.eclipse.xtext.log4j
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.generator;resolution:=optional,
+ de.itemis.xtext.antlr;resolution:=optional,
+ org.apache.commons.logging;resolution:=optional,
+ org.eclipse.emf.codegen.ecore;resolution:=optional,
+ org.eclipse.xtext.log4j;resolution:=optional,
+ org.eclipse.emf.mwe.utils;resolution:=optional,
+ org.eclipse.emf.mwe.core;resolution:=optional,
+ com.ibm.icu;resolution:=optional,
+ org.eclipse.xtext.xtend;resolution:=optional,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common,
+ org.antlr.runtime,
+ org.openarchitectureware.var.featureaccess,
+ org.eclipse.xtend
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.openarchitectureware.demo.archdsl.language,
+ org.openarchitectureware.demo.archdsl.language.extensions,
+ org.openarchitectureware.demo.archdsl.language.services,
+ org.openarchitectureware.demo.archdsl.language.adsl,
+ org.openarchitectureware.demo.archdsl.language.adsl.impl,
+ org.openarchitectureware.demo.archdsl.language.adsl.util,
+ org.openarchitectureware.demo.archdsl.language.parseTreeConstruction,
+ org.openarchitectureware.demo.archdsl.language.parser.antlr,
+ org.openarchitectureware.demo.archdsl.language.validation,
+ org.openarchitectureware.demo.archdsl.language.helper
+

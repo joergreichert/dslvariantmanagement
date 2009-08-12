@@ -1,0 +1,138 @@
+import adsl;
+  
+extension org::openarchitectureware::demo::archdsl::language::extensions::Extensions reexport;
+
+// the name of the generated base class file
+baseClassFileName(Component this): fqBaseClassName().replaceAll("\\.", "/")+".java";
+// the package name of the component - based on the system
+packageName( Component this ): system().packageName()+"."+name.toFirstLower();
+// fully qualified base class anem
+fqBaseClassName( Component this ): packageName()+"."+baseClassName();
+// the name of the generated base class for components
+baseClassName( Component this ): name+"Base";
+// the name of the manually written subclass
+implClassName( Component this ): name;
+// and the fully qualified name of the class
+fqImplClassName( Component this ): packageName()+"."+implClassName();
+// the package name of a system is the qualified name
+packageName( System this ): "com.demo."+name;
+
+
+// the name of the Java interface for a provided port - rememeber,
+// because we use messaging, we need different interfaces for the
+// server and the client side. Different APIs!
+providerInterfaceClassName( ProvidedPort this ): "IP"+name.toFirstUpper()+"Provider";
+// this is the fully qualified version of the name
+fqProviderInterfaceClassName(ProvidedPort this ): component().packageName()+"."+providerInterfaceClassName();
+// ... and the file name
+providerInterfaceClassFileName(ProvidedPort this): fqProviderInterfaceClassName().replaceAll("\\.", "/")+".java";
+
+// the name of the Java interface for a required port - rememeber,
+// because we use messaging, we need different interfaces for the
+// server and the client side. Different APIs!
+requirerInterfaceClassName( RequiredPort this ): "IP"+name.toFirstUpper()+"Requirer";
+// this is the fully qualified version of the name
+fqRequirerInterfaceClassName(RequiredPort this ): component().packageName()+"."+requirerInterfaceClassName();
+// ... and the file name
+requirerInterfaceClassFileName(RequiredPort this): fqRequirerInterfaceClassName().replaceAll("\\.", "/")+".java";
+
+
+// the class name of the data type is the name of the type
+className(DataType this): name;
+// the package name is the containing system's package name
+packageName( DataType this ): system().packageName();
+// fully qualified...
+fqClassName( DataType this ): packageName()+"."+className();
+// ... and file name
+classFileName( DataType this ): fqClassName().replaceAll("\\.", "/")+".java";
+
+// base case for polymorphic dispatch
+javaType( DataType this ): "Object";
+ 
+// the type mappings for the primitive types
+// this should go somewhere into the models, 
+// it is not good practice to define types as
+// instances, and then hard-code the Java 
+// mapping in the extension files!
+javaType( PrimitiveType this ): 
+	switch {
+		case name == "void": "void"
+		case name == "int": "int"
+		case name == "boolean": "boolean"
+		case name == "String": "String"
+		case name == "string": "String"
+		default: null
+	};
+
+// complex types use the fully qual class name in Java, too
+javaType( ComplexType this ): fqClassName();
+
+// in some cases, we need a boxed version of the types.
+javaBoxedType( DataType this ): javaType();
+
+// same problem as for the primitive type mappings above.
+javaBoxedType( PrimitiveType this ): 
+	switch {
+		case name == "int": "Integer"
+		case name == "boolean": "Boolean"
+		default: javaType()
+	};
+
+// a utility that delegates to the type itself 
+javaType( DataTypeRef this ): type.javaType();
+// same for collections
+javaType( CollectionTypeRef this ): type.javaCollectionType();
+
+// the initializer for various types
+javaInitializer( DataTypeRef this ): type.javaInitializer();
+// ... and collections
+javaInitializer( CollectionTypeRef this ): type.javaCollectionInitializer();
+
+// by default, the initializer is null
+javaInitializer( DataType this ): "null";  
+// another hard-coded piece of stuff that
+// should go away :-)
+javaInitializer( PrimitiveType this ): 
+	switch {
+		case name == "int": "0"
+		case name == "boolean": "false"
+		case name == "String": "null"
+		case name == "string": "null"
+		default: null
+	};
+
+// the java collection type -- default is lists
+javaCollectionType( DataType this ): "java.util.List<"+javaBoxedType()+">";
+// the initializer for a collection
+javaCollectionInitializer( DataType this ): "new java.util.ArrayList<"+javaBoxedType()+">()";
+
+// the class name for messages
+className(Message this ): interface().name+role().toFirstUpper();
+// and the package name...
+packageName( Message this ): system().packageName();
+// ... fully qualified
+fqClassName( Message this ): packageName()+"."+className();
+// and the class name
+classFileName( Message this ): fqClassName().replaceAll("\\.", "/")+".java";
+
+// the class name of the future generated from a message
+futureClassName(Message this ): interface().name+role().toFirstUpper()+"Future";
+// ... fully qualified
+fqFutureClassName( Message this ): packageName()+"."+futureClassName();
+// and the file name, as usual :-)
+futureClassFileName( Message this ): fqFutureClassName().replaceAll("\\.", "/")+".java";
+
+// downcaster for a message's container
+MessageInteraction messageInteraction( Message this ): eContainer;
+// downcaster for a message's interface
+Interface interface( Message this ): eContainer.eContainer;
+
+// the java type for a message is the fq name of the
+// class generated from the message
+javaType( Message this ): fqClassName();
+
+// used to determine the role of a message in an interaction
+role( Message this ): role( this, messageInteraction() ); 
+role( Message this, MessageInteraction ex ): "ERROR: provide a role(Message, <ThisKindOfExchange>) operation!";
+role( Message this, OnewayInteraction ex ): "request";
+role( Message this, RequestReplyInteraction ex ): ex.request == this ? "request" : "response";
