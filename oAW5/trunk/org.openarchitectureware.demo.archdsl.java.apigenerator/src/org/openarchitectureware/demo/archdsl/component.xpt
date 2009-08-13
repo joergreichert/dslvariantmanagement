@@ -16,13 +16,15 @@ public abstract class «baseClassName()» implements org.openarchitectureware.demo
 	«EXPAND interface::providerInterface FOREACH providedPorts()»
 	«EXPAND interface::requirerInterface FOREACH requiredPorts()»
 	
-	// a "hack" to make Eclipse provide a useful quick fix
-	// to create the required subclass
-	static { 
-		if (false) {
-			«baseClassName()» temp = new «implClassName()»();
+	«IF isFeatureSelected("SubclassHint")»
+		// a "hack" to make Eclipse provide a useful quick fix
+		// to create the required subclass
+		static { 
+			if (false) {
+				«baseClassName()» temp = new «implClassName()»();
+			}
 		}
-	}
+	«ENDIF»
 
 	// each component instance at runtime knows the name of 
 	// the instance in the model from which it was created	

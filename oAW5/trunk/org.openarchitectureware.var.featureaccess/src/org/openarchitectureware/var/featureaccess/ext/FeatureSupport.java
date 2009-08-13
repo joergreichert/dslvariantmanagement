@@ -44,7 +44,9 @@ public class FeatureSupport {
 	
 	public static boolean isFeatureSelected( String featureName ) {
 		if ( configModelWrapper == null ) throw new WorkflowInterruptedException("no configModelWrapper defined!");
-		return configModelWrapper.findSelectedFeatureNames().contains(featureName);
+		List<String> selectedFeatures = configModelWrapper.findSelectedFeatureNames();
+		boolean featureFound = selectedFeatures.contains(featureName);
+		return featureFound;
 	}
 	
 	public static boolean isFeatureClauseTrue(EObject featureClause){

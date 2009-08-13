@@ -29,6 +29,9 @@
           <cm:target cm:id="iafwhK91wefeQ50WP">./i_Ap2CTuopdXHgPbF</cm:target>
           <cm:target cm:id="i_LqbYIGdVvcRFOn7">./iYe_HSOWKhZCj8Sst</cm:target>
         </cm:relation>
+        <cm:relation cm:id="inGnG-j4kVujLU6fs" cm:type="ps:mandatory">
+          <cm:target cm:id="ijJigxsITyoyKn7_R">./iRMuI6iEdbpy-5q_T</cm:target>
+        </cm:relation>
       </cm:relations>
       <cm:properties>
         <cm:property cm:id="iuGydde41eJhILD4v" cm:type="ps:string" cm:fixed="true" cm:readonly="true" cm:name="ps:Source">
@@ -38,10 +41,10 @@
           <cm:constant cm:id="i_znI5RBSQxSazgwt" cm:type="ps:datetime">2009-03-09T15:24:11.968Z</cm:constant>
         </cm:property>
         <cm:property cm:id="irA_RiV3MEgQAMpvq" cm:type="ps:string" cm:fixed="true" cm:readonly="true" cm:name="ps:ChangedBy">
-          <cm:constant cm:id="iTg02zpR2Z_G5lmKg" cm:type="ps:string">Andy</cm:constant>
+          <cm:constant cm:id="iTg02zpR2Z_G5lmKg" cm:type="ps:string">MarkusVoelter</cm:constant>
         </cm:property>
         <cm:property cm:id="i7P8R1KAJ03DlYNRY" cm:type="ps:datetime" cm:fixed="true" cm:readonly="true" cm:name="ps:Changed">
-          <cm:constant cm:id="i3EWmUm6B99L2ju6-" cm:type="ps:datetime">2009-03-15T11:04:19.453Z</cm:constant>
+          <cm:constant cm:id="i3EWmUm6B99L2ju6-" cm:type="ps:datetime">2009-08-13T08:34:23.234Z</cm:constant>
         </cm:property>
       </cm:properties>
     </cm:element>
@@ -433,6 +436,56 @@
         </cm:property>
         <cm:property cm:id="iKFb-VAcQ6-rZoqkE" cm:type="ps:datetime" cm:fixed="true" cm:readonly="true" cm:name="ps:Changed">
           <cm:constant cm:id="iw-K4pbOWpzTJrGPH" cm:type="ps:datetime">2009-03-15T11:09:13.406Z</cm:constant>
+        </cm:property>
+      </cm:properties>
+    </cm:element>
+    <cm:element cm:id="iRMuI6iEdbpy-5q_T" cm:name="_technical" cm:type="ps:feature" cm:class="ps:feature" cm:default="on">
+      <cm:relations cm:id="iLRz9PD5NdeFrBN_S" cm:class="ps:parents">
+        <cm:relation cm:id="iZQBXmpI8UG42Y_TY" cm:type="ps:parent">
+          <cm:target cm:id="iG4G8ycX7JB3oYUeJ">./iCloz8OBP0ICYBDos</cm:target>
+        </cm:relation>
+      </cm:relations>
+      <cm:relations cm:id="iDiB8RA3SQnAAz1ld" cm:class="ps:children">
+        <cm:relation cm:id="iO9huL9nJK_Lxc2ky" cm:type="ps:optional">
+          <cm:target cm:id="iRamMXSxoJwghsrUu">./i65lFg2VwteA0Vn2u</cm:target>
+        </cm:relation>
+      </cm:relations>
+      <cm:properties>
+        <cm:property cm:id="ikD3ef4gt_GwdjhSh" cm:type="ps:string" cm:fixed="true" cm:readonly="true" cm:name="ps:Source">
+          <cm:constant cm:id="iKIAypuoAwT5tE_zW" cm:type="ps:string">MarkusVoelter</cm:constant>
+        </cm:property>
+        <cm:property cm:id="iWcU5Rgf5BmV80aBa" cm:type="ps:datetime" cm:fixed="true" cm:readonly="true" cm:name="ps:Created">
+          <cm:constant cm:id="itPFDwB2_lfnaxROT" cm:type="ps:datetime">2009-08-13T08:34:23.234Z</cm:constant>
+        </cm:property>
+        <cm:property cm:id="iAOgSprZ4X6ShY_Hl" cm:type="ps:string" cm:fixed="true" cm:readonly="true" cm:name="ps:ChangedBy">
+          <cm:constant cm:id="iPtHilqHEZZvD3G10" cm:type="ps:string">MarkusVoelter</cm:constant>
+        </cm:property>
+        <cm:property cm:id="iaYwrSG2rF5KsEara" cm:type="ps:datetime" cm:fixed="true" cm:readonly="true" cm:name="ps:Changed">
+          <cm:constant cm:id="iopaUdNs_sSRNpEDT" cm:type="ps:datetime">2009-08-13T08:39:27.437Z</cm:constant>
+        </cm:property>
+      </cm:properties>
+    </cm:element>
+    <cm:element cm:id="i65lFg2VwteA0Vn2u" cm:name="SubclassHint" cm:type="ps:feature" cm:class="ps:feature" cm:default="off">
+      <cm:relations cm:id="ikTTgNX1B47Dm75nt" cm:class="ps:parents">
+        <cm:relation cm:id="ivAgIrCynp5gxZM6w" cm:type="ps:parent">
+          <cm:target cm:id="ikHjPAglSWnnoAGyL">./iRMuI6iEdbpy-5q_T</cm:target>
+        </cm:relation>
+      </cm:relations>
+      <cm:properties>
+        <cm:property cm:id="iRHiSN4WRqjAD4--T" cm:type="ps:string" cm:fixed="true" cm:readonly="true" cm:name="ps:Source">
+          <cm:constant cm:id="idXK88-1ZtL4Xwhb_" cm:type="ps:string">MarkusVoelter</cm:constant>
+        </cm:property>
+        <cm:property cm:id="iiqcQHz3Iaf6NhtEk" cm:type="ps:datetime" cm:fixed="true" cm:readonly="true" cm:name="ps:Created">
+          <cm:constant cm:id="iMcvEaRGOXIzjgUdk" cm:type="ps:datetime">2009-08-13T08:34:33.656Z</cm:constant>
+        </cm:property>
+        <cm:property cm:id="iZCAx_bkz6Q87rxBq" cm:type="ps:string" cm:fixed="true" cm:readonly="true" cm:name="ps:ChangedBy">
+          <cm:constant cm:id="iU90svisJTjSPLvRh" cm:type="ps:string">MarkusVoelter</cm:constant>
+        </cm:property>
+        <cm:property cm:id="iKVnGxETQM7GEeKcB" cm:type="ps:datetime" cm:fixed="true" cm:readonly="true" cm:name="ps:Changed">
+          <cm:constant cm:id="iOBNV5kBva5GMqliH" cm:type="ps:datetime">2009-08-13T08:52:12.609Z</cm:constant>
+        </cm:property>
+        <cm:property cm:id="iSO79N75zt1HZt5Xe" cm:type="ps:string" cm:fixed="true" cm:name="test">
+          <cm:constant cm:id="iTxpaLXlyrKcIMqZD" cm:type="ps:string">bla</cm:constant>
         </cm:property>
       </cm:properties>
     </cm:element>

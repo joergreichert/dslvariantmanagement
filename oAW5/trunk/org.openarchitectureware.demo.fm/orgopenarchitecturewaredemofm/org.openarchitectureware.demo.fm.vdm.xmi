@@ -17,9 +17,9 @@
           </target>
         </childRelationships>
         <childRelationships>
-          <target name="AsynchronousConferencing">
+          <target name="AsynchronousConferencing" selected="true">
             <childRelationships>
-              <target name="Forum"/>
+              <target name="Forum" selected="true"/>
             </childRelationships>
             <childRelationships>
               <target name="MicroBlogging"/>
@@ -58,6 +58,13 @@
         </childRelationships>
         <childRelationships>
           <target name="DocumentRepository" selected="true"/>
+        </childRelationships>
+        <childRelationships>
+          <target name="_technical" selected="true">
+            <childRelationships>
+              <target name="SubclassHint"/>
+            </childRelationships>
+          </target>
         </childRelationships>
       </target>
     </childRelationships>
