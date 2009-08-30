@@ -10,9 +10,9 @@
 		<registerGeneratedEPackage value="ca.uwaterloo.gp.fmp.FmpPackage" /> 
 	</bean>
 	
-	<bean class="org.openarchitectureware.demo.archdsl.language.MetaModelRegistration"/>
-
+	<property name="aspectModelUri" value="NOT_SET"/> 
 	
+	<bean class="org.openarchitectureware.demo.archdsl.language.MetaModelRegistration"/>
 
     <component file="${parserCartridge}">
         <modelFile value="${architectureModelFile}"/>
@@ -40,6 +40,7 @@
 	
 	<component class="org.openarchitectureware.var.tailor.model.weaver.WeaverComponent">
     	<architectureModelSlot value="theModel"/>
+    	<aspectModelUri value="${aspectModelUri}"/>
 	</component>
 
 	<component id="checksAfterWeaving" class="oaw.check.CheckComponent">

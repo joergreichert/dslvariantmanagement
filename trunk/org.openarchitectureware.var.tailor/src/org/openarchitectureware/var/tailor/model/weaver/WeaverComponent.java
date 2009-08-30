@@ -18,10 +18,15 @@ import org.openarchitectureware.workflow.monitor.ProgressMonitor;
 public class WeaverComponent extends AbstractWorkflowComponent2 {
 	
 	private String architectureModelSlot;
+	private String aspectModelUri;
 	private DynamicEcoreHelper h;
 
 	public void setArchitectureModelSlot( String slotname ) {
 		architectureModelSlot = slotname;
+	}
+	
+	public void setAspectModelUri( String modelUri ) {
+		aspectModelUri = modelUri;
 	}
 	
 	@Override
@@ -40,9 +45,9 @@ public class WeaverComponent extends AbstractWorkflowComponent2 {
 		if ( architectureModel == null )  {
 			issues.addError("no contents found in slot "+architectureModelSlot);
 			return;
-		}
+		}		
 		Weaver w = new Weaver();
-		w.weave(architectureModel);
+		w.weave(architectureModel, aspectModelUri);
 	}
 
 

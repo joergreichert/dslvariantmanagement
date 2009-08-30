@@ -95,9 +95,11 @@ public class Remover {
 
 			if ( o.eClass().getName().endsWith(GrammarConstants.MODELIMPORT_CLASSNAME_SUFFIX)) {
 				String importedUri = o.eGet( o.eClass().getEStructuralFeature(GrammarConstants.MODELIMPORT_URIPROPERTY) ).toString();
-				List<EObject> theNextRoots = CachingModelLoad.load(importedUri, model, true);
-				for (EObject r : theNextRoots) {
-					loadModel(r, result);
+				if( ! importedUri.endsWith(".ftxt") ){
+					List<EObject> theNextRoots = CachingModelLoad.load(importedUri, model, true);
+					for (EObject r : theNextRoots) {
+						loadModel(r, result);
+					}
 				}
 			}
 		}

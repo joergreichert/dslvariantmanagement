@@ -7,21 +7,33 @@
 	<property name="configPath" value="generated/configured"/>
 	<property name="projectName" value="test"/>	
 	
-	<cartridge 
-		file="org/openarchitectureware/demo/archdsl/apiForProduct.oaw"
-		configModelUri="${configModelUri}"
-		adslFile="${adslFile}"
-		genPath="${genPath}"/>
+ 	
+ 	<!-- <feature isSelected="Forum"> -->
+		<cartridge 
+			file="org/openarchitectureware/demo/archdsl/apiForProduct.oaw"
+			configModelUri="${configModelUri}"
+			adslFile="${adslFile}"
+			genPath="${genPath}"/>
+			
+			<component class="oaw.workflow.common.DirectoryCleaner" 
+			directories="${configPath}"/>
+			
 		
-		<component class="oaw.workflow.common.DirectoryCleaner" 
-		directories="${configPath}"/>
-		
+		<component class="org.openarchitectureware.var.tailor.code.CoderComponent">
+			<sourcePath value="platform:/resource/${projectName}/src-variants"/>
+			<genPath value="platform:/resource/${projectName}/${configPath}"/>
+			<configurationModelSlot value="configurationModel"/>
+	        <configurationModelWrapperClass value="org.openarchitectureware.var.featureaccess.pv.PVConfigurationModelWrapper"/>
+		</component> 	
+	<!-- </feature> -->
 	
-	<component class="org.openarchitectureware.var.tailor.code.CoderComponent">
-		<sourcePath value="platform:/resource/${projectName}/src-variants"/>
-		<genPath value="platform:/resource/${projectName}/${configPath}"/>
-		<configurationModelSlot value="configurationModel"/>
-        <configurationModelWrapperClass value="org.openarchitectureware.var.featureaccess.pv.PVConfigurationModelWrapper"/>
-	</component> 	
+	<!-- -->
+	<component id="write" class="org.eclipse.mwe.emf.Writer">
+		<useSingleGlobalResourceSet value="true"/>
+		<cloneSlotContents value="true"/>
+		<modelSlot value="theModel"/>
+		<uri value="dump.xmi"/>	
+	</component>
+	<!-- -->
 
 </workflow>

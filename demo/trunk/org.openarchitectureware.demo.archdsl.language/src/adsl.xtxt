@@ -59,7 +59,10 @@ Import:
 // namespaces are tne primary container of stuff,
 // they can use other namespaces and can be nested 
 System:
-	"system" name=ID (featureClause=FeatureClause)? 
+	(pointcut=Pointcut)? 
+	"system" name=ID 
+	(tags=TagsClause)?  
+	(featureClause=FeatureClause)? 
 	  "{"
 		(usings+=Using)*	
 		( subSystems+=System 
@@ -82,21 +85,30 @@ Component:
 	UiComponent | BlComponent | PersComponent;
 	
 UiComponent:
-	"uicomponent" name=ID (featureClause=FeatureClause)?
+	(pointcut=Pointcut)? 
+	"uicomponent" name=ID
+	(tags=TagsClause)?  
+	(featureClause=FeatureClause)?
 	"{" 
 		(ports+=Port)*
 		(configuration=ComponentConfiguration)?		
 	"}";
 	
 BlComponent:
-	"blcomponent" name=ID (featureClause=FeatureClause)?
+	(pointcut=Pointcut)? 
+	"blcomponent" name=ID
+	(tags=TagsClause)? 	 
+	(featureClause=FeatureClause)?
 	"{" 
 		(ports+=Port)*
 		(configuration=ComponentConfiguration)?		
 	"}";
 	
 PersComponent:
-	"persistencecomponent" name=ID (featureClause=FeatureClause)?
+	(pointcut=Pointcut)? 
+	"persistencecomponent" name=ID
+	(tags=TagsClause)?  
+	(featureClause=FeatureClause)?
 	"{" 
 		(ports+=Port)*
 		(configuration=ComponentConfiguration)?		
@@ -281,4 +293,40 @@ Enum ValueTimeEnum:
 	
 // a tokenizer pattern for dot-separated names
 String qualID: ID ("." ID)*;
+
+
+
+//{ Aspect Stuff
+
+TagsClause: 
+	"tags" "(" (tags+=Tag)* ")"; 
+  
+Tag: 
+	name=ID;   
+  
+ 
+Pointcut: 
+	"aspect" "{" (matches+=Match)* "}"; 
+  
+Match: 
+	AllMatch | ExactNameMatch | StartsWithNameMatch | EndsWithNameMatch | TagMatch;
+  
+  
+AllMatch: 
+	"*"; 
+  
+ExactNameMatch: 
+	"name" "=" name=ID; 
+  
+StartsWithNameMatch: 
+	"name" "=" name=ID "*"; 
+  
+EndsWithNameMatch: 
+	"name" "="  "*" name=ID; 
+  
+TagMatch: 
+	"tag" "=" name=ID; 
+ 
+
+//}
 	

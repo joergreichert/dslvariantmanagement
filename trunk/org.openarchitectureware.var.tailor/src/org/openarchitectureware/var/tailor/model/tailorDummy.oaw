@@ -1,19 +1,22 @@
 <workflow abstract="true">
-
-	<property name="dslPackage"/>
+	
+	<property name="architectureModelFile"/>
+	<property name="configurationModelUri"/>
 	<property name="constraintFile"/>
 	<property name="parserCartridge"/>
 
 	<bean class="org.eclipse.mwe.emf.StandaloneSetup">
 		<platformUri value=".."/>
-		<registerEcoreFile value="${dslPackage}"/>
 	</bean>
+
+	<property name="aspectModelUri" value="NOT_SET"/> 
+
 
     <component file="${parserCartridge}">
         <modelFile value="${architectureModelFile}"/>
         <outputSlot value="architectureModel"/>
-    </component>
-     
+    </component>  
+    
 	<component id="read" class="org.openarchitectureware.var.featureaccess.dummy.DummyConfigurationModelLoader">
 		<uri value="${configurationModelUri}"/>
 		<outputSlot value="configurationModel"/>
@@ -31,9 +34,11 @@
 		<checkFile value="${constraintFile}"/>
 		<emfAllChildrenSlot value="architectureModel"/>
 	</component>
-	
+
+
 	<component class="org.openarchitectureware.var.tailor.model.weaver.WeaverComponent">
-    	<architectureModelSlot value="architectureModel"/>
+    	<architectureModelSlot value="architectureModel"/> 
+    	<aspectModelUri value="${aspectModelUri}"/>
 	</component>
 
 	<component id="checksAfterWeaving" class="oaw.check.CheckComponent">

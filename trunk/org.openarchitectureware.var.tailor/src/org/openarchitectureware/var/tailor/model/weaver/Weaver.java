@@ -5,8 +5,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.openarchitectureware.util.stdlib.CloningExtensions;
 import org.openarchitectureware.util.stdlib.DynamicEcoreHelper;
@@ -18,10 +22,22 @@ public class Weaver {
 	
 	private DynamicEcoreHelper h;
 
-	public void weave( EObject architectureModel ) {
+	public void weave( EObject architectureModel, String aspectModelUri ) {
+		ResourceSet rs = architectureModel.eResource().getResourceSet();
+		EObject aspectModel = null;
+		if( ! aspectModelUri.equals("NOT_SET") ){
+			aspectModel =  rs.getResource(URI.createURI(aspectModelUri), true)
+			 .getContents().get(0);
+		} 
+		
 		h = new DynamicEcoreHelper(architectureModel.eClass().getEPackage());
+	
 		List<EObject> pointcuts = findAllPointcuts(architectureModel);
+		if(aspectModel != null)
+			pointcuts.addAll(findAllPointcuts(aspectModel));
+		
 		List<EObject> aspectElements = extractContainers( pointcuts );
+	
 		for ( int i=pointcuts.size()-1; i>=0; i-- ) {
 			EObject pointcut  = (EObject) pointcuts.get(i);
 			EObject aspectElement  = (EObject) aspectElements.get(i);
@@ -81,9 +97,11 @@ public class Weaver {
 			result.add( o );
 			if ( o.eClass().getName().endsWith(GrammarConstants.MODELIMPORT_CLASSNAME_SUFFIX)) {
 				String importedUri = o.eGet( o.eClass().getEStructuralFeature(GrammarConstants.MODELIMPORT_URIPROPERTY) ).toString();
-				List<EObject> theNextRoots = CachingModelLoad.load(importedUri, model, true);
-				for (EObject r : theNextRoots) {
-					loadModel(r, result);
+				if( ! importedUri.endsWith(".ftxt")){
+					List<EObject> theNextRoots = CachingModelLoad.load(importedUri, model, true);
+					for (EObject r : theNextRoots) {
+						loadModel(r, result);
+					}
 				}
 			}
 		}
@@ -152,8 +170,9 @@ public class Weaver {
 		return false;
 	}
 
-	private List<EObject> findAllPointcuts(EObject architectureModel) {
-		return findInstancesOf(architectureModel, GrammarConstants.POINTCUT_CLASSNAME);
+	private List<EObject> findAllPointcuts(EObject model) {
+		return model != null 
+		? findInstancesOf(model, GrammarConstants.POINTCUT_CLASSNAME): null;
 	}
 	
 	private List<EObject> findInstancesOf(EObject architectureModel, String className) {
@@ -177,6 +196,24 @@ public class Weaver {
 		}
 		return as;
 	}	
+	
+	
+	  /**
+	   * @param element
+	   * @return the roots of each model in element's resource set  
+	   */
+	  public static List<EObject> allRootElements( EObject element ) {
+	    ResourceSet rs = element.eResource().getResourceSet();
+	    List<EObject> roots = new ArrayList<EObject>();
+	    List<Resource> resList = rs.getResources();
+	    for (Resource r : resList) {
+			roots.add(r.getContents().get(0));
+		}
+	    return roots;
+	  }
+	  
+	  
+	 
 	
 
 }

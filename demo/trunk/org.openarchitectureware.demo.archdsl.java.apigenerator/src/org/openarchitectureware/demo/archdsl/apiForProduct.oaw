@@ -14,6 +14,7 @@
 	
 	<component file="org/openarchitectureware/var/tailor/model/tailorPV.oaw"
 		architectureModelFile="${adslFile}"
+		aspectModelUri="platform:/resource/test/model/components/aspects.adsl"
 		configurationModelUri="${configModelUri}"		
 		parserCartridge="org/openarchitectureware/demo/archdsl/language/parser/Parser.oaw"
 		constraintFile="org::openarchitectureware::demo::archdsl::language::Checks" />
