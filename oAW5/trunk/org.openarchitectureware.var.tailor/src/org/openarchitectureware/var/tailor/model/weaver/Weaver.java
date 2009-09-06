@@ -22,10 +22,22 @@ public class Weaver {
 	
 	private DynamicEcoreHelper h;
 
-	public void weave( EObject architectureModel ) {
+	public void weave( EObject architectureModel, String aspectModelUri ) {
+		ResourceSet rs = architectureModel.eResource().getResourceSet();
+		EObject aspectModel = null;
+		if( ! aspectModelUri.equals("NOT_SET") ){
+			aspectModel =  rs.getResource(URI.createURI(aspectModelUri), true)
+			 .getContents().get(0);
+		} 
+		
 		h = new DynamicEcoreHelper(architectureModel.eClass().getEPackage());
+	
 		List<EObject> pointcuts = findAllPointcuts(architectureModel);
+		if(aspectModel != null)
+			pointcuts.addAll(findAllPointcuts(aspectModel));
+		
 		List<EObject> aspectElements = extractContainers( pointcuts );
+	
 		for ( int i=pointcuts.size()-1; i>=0; i-- ) {
 			EObject pointcut  = (EObject) pointcuts.get(i);
 			EObject aspectElement  = (EObject) aspectElements.get(i);
@@ -83,19 +95,20 @@ public class Weaver {
 		for (Iterator iterator = EcoreUtil.getAllContents(model, true); iterator.hasNext();) {
 			EObject o = (EObject) iterator.next();
 			result.add( o );
-			if ( o.eClass().getName().endsWith(GrammarConstants.MODELIMPORT_CLASSNAME_SUFFIX)) {
-				String featureModelUri = o.eGet( o.eClass().getEStructuralFeature(GrammarConstants.MODELIMPORT_URIPROPERTY) ).toString();
+			if ( o.eClass().getName().equals(GrammarConstants.MODELIMPORT_CLASSNAME_SUFFIX)) {
+				String modelUri = o.eGet( o.eClass().getEStructuralFeature(GrammarConstants.MODELIMPORT_URIPROPERTY) ).toString();
+				if( ! modelUri.endsWith(".ftxt")){	
+					//TODO must be checked!
+					ResourceSet resourceSet = new ResourceSetImpl();
+					resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(
+					Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+					URI fileURI = URI.createURI(modelUri); 
+					Resource resource = resourceSet.createResource(fileURI);
 				
-        //TODO must be checked!
-        ResourceSet resourceSet = new ResourceSetImpl();
-        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(
-        Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-        URI fileURI = URI.createURI(featureModelUri); 
-        Resource resource = resourceSet.createResource(fileURI);
-				
-				List<EObject> theNextRoots = resource.getContents();
-				for (EObject r : theNextRoots) {
-					loadModel(r, result);
+					List<EObject> theNextRoots = resource.getContents();
+					for (EObject r : theNextRoots) {
+						loadModel(r, result);
+					}
 				}
 			}
 		}

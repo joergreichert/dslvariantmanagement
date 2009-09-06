@@ -29,4 +29,5 @@ public class GrammarConstants {
 	public static final String MODELIMPORT_CLASSNAME_SUFFIX = "Import";
 
 	
+	
 }

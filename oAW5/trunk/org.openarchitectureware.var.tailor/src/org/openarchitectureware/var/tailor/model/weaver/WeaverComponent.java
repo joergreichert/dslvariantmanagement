@@ -15,13 +15,19 @@ import org.eclipse.emf.mwe.core.issues.Issues;
 import org.eclipse.emf.mwe.core.lib.AbstractWorkflowComponent2;
 import org.eclipse.emf.mwe.core.monitor.ProgressMonitor;
 
+
 public class WeaverComponent extends AbstractWorkflowComponent2 {
 	
 	private String architectureModelSlot;
+	private String aspectModelUri;
 	private DynamicEcoreHelper h;
 
 	public void setArchitectureModelSlot( String slotname ) {
 		architectureModelSlot = slotname;
+	}
+	
+	public void setAspectModelUri( String modelUri ) {
+		aspectModelUri = modelUri;
 	}
 	
 	@Override
@@ -40,9 +46,9 @@ public class WeaverComponent extends AbstractWorkflowComponent2 {
 		if ( architectureModel == null )  {
 			issues.addError("no contents found in slot "+architectureModelSlot);
 			return;
-		}
+		}		
 		Weaver w = new Weaver();
-		w.weave(architectureModel);
+		w.weave(architectureModel, aspectModelUri);
 	}
 
 

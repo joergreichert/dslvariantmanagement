@@ -2,15 +2,16 @@
 
 	<property name="dslPackage"/>
 	<property name="constraintFile"/>
-	<property name="standaloneSetup"/>
-	<property name="architectureModelFile"/>
-	
+	<property name="parserCartridge"/>
+	<property name="configurationModelUri"/>
 
 	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup">
 		<platformUri value=".."/> 
 		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmodel.PvmodelPackage" />
 		<registerGeneratedEPackage value="com.ps.consul.eclipse.ecore.pvmeta.PvmetaPackage" />
 	</bean>
+
+	<property name="aspectModelUri" value="NOT_SET"/> 
 	
 	<!-- parse the model -->
 	<component class="org.eclipse.xtext.MweReader" uri="${architectureModelFile}">
@@ -38,6 +39,7 @@
 	
 	<component class="org.openarchitectureware.var.tailor.model.weaver.WeaverComponent">
     	<architectureModelSlot value="model"/>
+    	<aspectModelUri value="${aspectModelUri}"/>
 	</component>
 
 	<component id="checksAfterWeaving" class="org.eclipse.xtend.check.CheckComponent">

@@ -107,14 +107,17 @@ public class Remover {
 			  try{
 				  URI modelURI = model.eResource().getURI();
 				  if(modelURI.isPlatform()){
-  				  String modelFolderUri = modelURI.toPlatformString(true)
-  				    .replaceFirst(model.eResource().getURI().lastSegment(), "");
-  				  URI importedUri = URI.createURI( encodeUriString(importedUriString, modelFolderUri)  ); 
-  				  List<EObject> theNextRoots = loadModelUri(importedUri, o);
-  				  // TODO cycles must be catched!
-  				  for (EObject r : theNextRoots) {
-  	          loadModel(r, result);
-  	        }
+				    if( ! modelURI.toString().endsWith(".ftxt") ){
+					   String modelFolderUri = modelURI.toPlatformString(true)
+						  .replaceFirst(model.eResource().getURI().lastSegment(), "");
+				    				    
+  				       URI importedUri = URI.createURI( encodeUriString(importedUriString, modelFolderUri)  ); 
+  				       List<EObject> theNextRoots = loadModelUri(importedUri, o);
+  				       // TODO cycles must be catched!
+  				       for (EObject r : theNextRoots) {
+  					    loadModel(r, result);
+  				       }
+				    }
 				  } else throw new Exception("wrong uri type");
 			  } catch (Exception e) {
           e.printStackTrace();
