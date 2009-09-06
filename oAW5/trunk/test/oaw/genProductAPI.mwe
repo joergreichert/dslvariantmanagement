@@ -23,5 +23,13 @@
 		<configurationModelSlot value="configurationModel"/>
         <configurationModelWrapperClass value="org.openarchitectureware.var.featureaccess.pv.PVConfigurationModelWrapper"/>
 	</component> 	
+	
+	<component id="write" class="org.eclipse.emf.mwe.utils.Writer">
+		<useSingleGlobalResourceSet value="true"/>
+		<cloneSlotContents value="true"/>
+		<modelSlot value="model"/>
+		<uri value="dump.xmi"/>	
+	</component>
+	
 
 </workflow>

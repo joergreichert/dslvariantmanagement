@@ -9,7 +9,7 @@ system collabSPL {
 		
 		struct UserInfo {
 			username : string;
-			name : string;
+			^name : string;
 			status : int;
 		}
 		

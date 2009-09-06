@@ -1,0 +1,12 @@
+import 'components/lib.adsl' 
+
+aspect{name=logic}
+system extendedIMInterfaces{
+	using lib.types;		
+	
+	interface IRedirecting{ 
+		oneway redirect: ( userID: int , redirectID: int);
+		oneway reset: (); 
+		rr getRedirectId: request=() reply=( redirectID: int );
+	}
+}
