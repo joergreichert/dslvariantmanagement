@@ -12,6 +12,7 @@
 	
 	<component file="org/openarchitectureware/var/tailor/model/tailorPV.mwe"
 		standaloneSetup="org.openarchitectureware.demo.archdsl.language.AdslStandaloneSetup"
+		aspectModelUri="platform:/resource/test/model/components/aspects.adsl"
 		architectureModelFile="${adslFile}"
 		configurationModelUri="${configModelUri}"		
 		constraintFile="org::openarchitectureware::demo::archdsl::language::validation::AdslFastChecks" />
