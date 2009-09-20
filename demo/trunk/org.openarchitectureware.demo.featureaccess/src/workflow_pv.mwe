@@ -1,0 +1,26 @@
+<workflow>
+
+	<property name="conf_model_file" value="model/features/org.openarchitectureware.demo.fm.vdm.xmi" />
+	<property name="name" value="pv" />
+
+	<component class="org.openarchitectureware.var.featureaccess.ConfigurationModelReader">
+		<configurationModelFile value="${conf_model_file}" />
+	</component> 	
+
+	<component class="org.eclipse.emf.mwe.utils.Reader">     
+		<uri value="model/domain/example.xmi" />     
+		<modelSlot value="model" />   
+	</component>
+	
+	<feature isSelected="Security">
+		<component class="org.eclipse.xpand2.Generator">
+			<metaModel class="org.eclipse.xtend.typesystem.emf.EmfMetaModel">
+				<metaModelFile value="model/domain/example.ecore" />
+			</metaModel> 
+			<expand
+				value="templates::Market::processMarket('${name}') FOR model" />
+			<outlet path="src-gen" />
+		</component>
+	</feature>
+
+</workflow>
