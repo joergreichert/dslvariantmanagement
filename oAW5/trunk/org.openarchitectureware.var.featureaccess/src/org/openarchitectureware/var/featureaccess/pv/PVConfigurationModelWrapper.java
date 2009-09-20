@@ -1,38 +1,76 @@
 package org.openarchitectureware.var.featureaccess.pv;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.mwe.core.WorkflowInterruptedException;
-import org.eclipse.xtend.util.stdlib.DynamicEcoreHelper;
+import org.eclipse.emf.mwe.core.config.AttributeNotFound;
+import org.eclipse.emf.mwe.core.config.FeatureNotFound;
 import org.openarchitectureware.var.featureaccess.ConfigurationModelWrapper;
-import org.openarchitectureware.var.featureaccess.FeatureModelWrapper;
+
+import com.ps.consul.eclipse.ecore.pvmeta.Feature;
+import com.ps.consul.eclipse.ecore.pvmeta.Model;
+import com.ps.consul.eclipse.ecore.pvmeta.PvmetaPackage;
+import com.ps.consul.eclipse.ecore.pvmodel.PvmodelPackage;
 
 public class PVConfigurationModelWrapper extends ConfigurationModelWrapper {
 
-	
-	public List<String> findSelectedFeatureNames() {
-		EObject pvfeatureConf = (EObject)configuration;
-		DynamicEcoreHelper h = new DynamicEcoreHelper(pvfeatureConf.eClass().getEPackage());
-		List<String> selectedFeatureNames = new ArrayList();		
-		for (Iterator iterator = pvfeatureConf.eAllContents(); iterator.hasNext();) {
-			EObject o = (EObject) iterator.next();
-			if ( o.eClass().getName().equals("Feature")) {
-				String featureName = h.getName(o);
-				boolean isSelected = (Boolean)h.get(o, "selected");
-				if ( isSelected ) selectedFeatureNames.add(featureName);
-			}
+	public void setConfigurationData(Object data) {
+		if (!(data instanceof Model)) {
+			throw new WorkflowInterruptedException(
+					"the file which is defined by configurationModelUri is no pv config model!");
 		}
-		return selectedFeatureNames;
+		super.setConfigurationData(data);
 	}
 	
-	public void setConfigurationData( Object data ) {
-		if( ! data.getClass().getSimpleName().equals("ModelImpl"))
-			throw new WorkflowInterruptedException("the file which is defined by configurationModelUri is no pv config model!");
-		configuration = data;
-	}	
+	public List<String> findSelectedFeatureNames() {
+		List<String> selectedFeatureNames = new ArrayList<String>();
+		selectedFeatureNames = PVModelIterator
+				.getAllSelectedFeatureNames((Model) getConfigurationData());
+		return selectedFeatureNames;
+	}
+
+	public boolean featureExists(String featureName) {
+		return PVModelIterator.getAllExistingFeatureNames(
+				(Model) getConfigurationData()).contains(featureName);
+	}
+
+	public Object getAttributeValue(String featureName, String attributeName)
+			throws FeatureNotFound, AttributeNotFound {
+		Feature feature = PVModelIterator
+				.getExistingFeature((Model) getConfigurationData(), featureName);
+		if (feature == null) {
+			throw new FeatureNotFound(featureName + " not found.");
+		}
+		return PVModelIterator.getAttributeValue(feature, attributeName);
+	}
+
+	public Object getFeature(String featureName) {
+		return PVModelIterator.getExistingFeature((Model) getConfigurationData(),
+				featureName);
+	}
+
+	public boolean isFeatureSelected(String featureName) throws FeatureNotFound {
+		return findSelectedFeatureNames().contains(featureName);
+	}
+
+	@Override
+	public void loadConfigurationData(String filenameOrUri) {
+		ResourceSet resourceSet = loadPureVariantsPackages();
+		setConfigurationData(getModelRoot(resourceSet, filenameOrUri));
+	}
 	
+	private ResourceSet loadPureVariantsPackages() {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
+				.put("xmi", new XMIResourceFactoryImpl());
+		resourceSet.getPackageRegistry().put(PvmetaPackage.eNS_URI,
+				PvmetaPackage.eINSTANCE);
+		resourceSet.getPackageRegistry().put(PvmodelPackage.eNS_URI,
+				PvmodelPackage.eINSTANCE);
+		return resourceSet;
+	}
 }

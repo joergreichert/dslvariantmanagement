@@ -1,6 +1,10 @@
 package org.openarchitectureware.var.featureaccess;
 
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.mwe.core.WorkflowContext;
 import org.eclipse.emf.mwe.core.issues.Issues;
 import org.eclipse.emf.mwe.core.lib.AbstractWorkflowComponent2;
@@ -37,6 +41,4 @@ public abstract class FeatureDependentComponent extends AbstractWorkflowComponen
 		}
 		return null;
 	}
-	
-
 }

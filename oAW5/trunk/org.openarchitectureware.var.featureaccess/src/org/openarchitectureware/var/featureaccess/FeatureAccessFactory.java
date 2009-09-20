@@ -13,10 +13,12 @@ public class FeatureAccessFactory {
 		feature.put( ".xfm.xmi", "org.openarchitectureware.var.featureaccess.pv.PVFeatureModelWrapper" );
 		feature.put( ".fmp", "org.openarchitectureware.var.featureaccess.fmp.FMPFeatureModelWrapper" );
 		feature.put( ".ftxt", "org.openarchitectureware.var.featureaccess.dummy.DummyFeatureModelWrapper" );
+		feature.put( ".txt", "org.openarchitectureware.var.featureaccess.text.TextFeatureModelWrapper" );
 
 		config.put( ".vdm.xmi", "org.openarchitectureware.var.featureaccess.pv.PVConfigurationModelWrapper" );
 		config.put( ".ctxt", "org.openarchitectureware.var.featureaccess.dummy.DummyConfigurationModelWrapper" );
 		config.put( ".fmp", "org.openarchitectureware.var.featureaccess.fmp.FMPConfigurationModelWrapper" );
+		config.put( ".txt", "org.openarchitectureware.var.featureaccess.text.TextConfigurationModelWrapper" );
 	}
 	
 	

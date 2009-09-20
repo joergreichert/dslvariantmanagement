@@ -34,7 +34,7 @@ public class FMPFeatureModelWrapper extends FeatureModelWrapper {
 			}
 		}
 		EObject root = r.getContents().get(0);
-		FMPModelIterator.getFeatureNames(root);
+		featureNames = FMPModelIterator.getAllExistingFeatureNames(root);
 	}
 
 	@Override

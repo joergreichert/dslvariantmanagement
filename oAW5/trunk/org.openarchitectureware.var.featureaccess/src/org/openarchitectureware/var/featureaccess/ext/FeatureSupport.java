@@ -3,17 +3,12 @@ package org.openarchitectureware.var.featureaccess.ext;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-import org.eclipse.xtend.util.stdlib.DynamicEcoreHelper;
-import org.eclipse.emf.mwe.core.WorkflowInterruptedException;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.mwe.core.WorkflowInterruptedException;
+import org.eclipse.xtend.util.stdlib.DynamicEcoreHelper;
 import org.openarchitectureware.var.featureaccess.ConfigurationModelWrapper;
-import org.openarchitectureware.var.featureaccess.ElementRemovalHelper;
 import org.openarchitectureware.var.featureaccess.FeatureAccessFactory;
 import org.openarchitectureware.var.featureaccess.FeatureModelWrapper;
 
