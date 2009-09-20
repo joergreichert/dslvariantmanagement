@@ -1,10 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.openarchitectureware.var.featureaccess
-Bundle-SymbolicName: org.openarchitectureware.var.featureaccess_old;singleton:=true
+Bundle-SymbolicName: org.openarchitectureware.var.featureaccess;singleton:=true
 Bundle-Version: 1.0.0
 Require-Bundle: org.eclipse.xtext,
- org.openarchitectureware.generator;resolution:=optional,
  de.itemis.xtext.antlr;resolution:=optional,
  org.apache.commons.logging;resolution:=optional,
  org.eclipse.emf.codegen.ecore;resolution:=optional,
