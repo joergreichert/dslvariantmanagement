@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pvmeta:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:pvmeta="http://pure-variants.com/pvmeta">
+  <root name="Variant: orgopenarchitecturewaredemofmVariant" selected="true">
+    <childRelationships>
+      <target name="CollaborationSystemFeatures" selected="true">
+        <childRelationships>
+          <target name="AccessManagement" selected="true"/>
+        </childRelationships>
+        <childRelationships>
+          <target name="Security" selected="true">
+            <childRelationships>
+              <target name="Authentication" selected="true"/>
+            </childRelationships>
+            <childRelationships>
+              <target name="Encryption" selected="true"/>
+            </childRelationships>
+          </target>
+        </childRelationships>
+        <childRelationships>
+          <target name="AsynchronousConferencing" selected="true">
+            <childRelationships>
+              <target name="Forum" selected="true"/>
+            </childRelationships>
+            <childRelationships>
+              <target name="MicroBlogging"/>
+            </childRelationships>
+          </target>
+        </childRelationships>
+        <childRelationships>
+          <target name="SynchronousConferencing" selected="true">
+            <childRelationships>
+              <target name="Video" selected="true"/>
+            </childRelationships>
+            <childRelationships>
+              <target name="Data" selected="true">
+                <childRelationships>
+                  <target name="VNC"/>
+                </childRelationships>
+                <childRelationships>
+                  <target name="X11" selected="true"/>
+                </childRelationships>
+              </target>
+            </childRelationships>
+            <childRelationships>
+              <target name="Text" selected="true"/>
+            </childRelationships>
+            <childRelationships>
+              <target name="Audio" selected="true">
+                <childRelationships>
+                  <target name="TelephoneIntegration"/>
+                </childRelationships>
+                <childRelationships>
+                  <target name="VoiceOverIP" selected="true"/>
+                </childRelationships>
+              </target>
+            </childRelationships>
+          </target>
+        </childRelationships>
+        <childRelationships>
+          <target name="DocumentRepository" selected="true"/>
+        </childRelationships>
+      </target>
+    </childRelationships>
+  </root>
+</pvmeta:Model>
