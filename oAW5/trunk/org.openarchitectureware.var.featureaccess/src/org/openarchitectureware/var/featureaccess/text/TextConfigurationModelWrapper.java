@@ -15,6 +15,10 @@ import org.openarchitectureware.var.featureaccess.ConfigurationModelWrapper;
 
 public class TextConfigurationModelWrapper extends ConfigurationModelWrapper {
 
+	public TextConfigurationModelWrapper() {
+
+	}
+
 	@Override
 	public void loadConfigurationData(String configFile) {
 		ResourceLoader l = ResourceLoaderFactory.createResourceLoader();
@@ -29,18 +33,24 @@ public class TextConfigurationModelWrapper extends ConfigurationModelWrapper {
 			throw new WorkflowInterruptedException("cannot read config file "
 					+ configFile + ": " + e.getMessage());
 		}
+		if (lines.size() == 0) {
+			throw new WorkflowInterruptedException(
+					"The given text configuration model is invalid, "
+							+ "as no entries could be found "
+							+ "in the model file.");
+		}
 		setConfigurationData(lines);
 	}
 
 	@Override
 	public List<String> findSelectedFeatureNames() {
 		return TextModelIterator
-				.getAllSelectedFeatureNames((List<String>) getConfigurationData());
+				.getAllSelectedFeatureNames(getTextConfigurationData());
 	}
 
 	public boolean featureExists(String featureName) {
 		return TextModelIterator.getAllExistingFeatureNames(
-				(List<String>) getConfigurationData()).contains(featureName);
+				getTextConfigurationData()).contains(featureName);
 	}
 
 	public Object getAttributeValue(String featureName, String attributeName)
@@ -51,7 +61,7 @@ public class TextConfigurationModelWrapper extends ConfigurationModelWrapper {
 
 	public Object getFeature(String featureName) {
 		return (TextModelIterator
-				.getAllExistingFeatureNames((List<String>) getConfigurationData())
+				.getAllExistingFeatureNames(getTextConfigurationData())
 				.contains(featureName)) ? featureName : null;
 	}
 
@@ -61,12 +71,16 @@ public class TextConfigurationModelWrapper extends ConfigurationModelWrapper {
 					"expressions are not implemented");
 		} else {
 			return TextModelIterator.getAllSelectedFeatureNames(
-					(List<String>) getConfigurationData())
-					.contains(featureName);
+					getTextConfigurationData()).contains(featureName);
 		}
 	}
-	
+
 	private boolean isExpression(String query) {
 		return query.endsWith("()");
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<String> getTextConfigurationData() {
+		return (List<String>) super.getConfigurationData();
 	}
 }

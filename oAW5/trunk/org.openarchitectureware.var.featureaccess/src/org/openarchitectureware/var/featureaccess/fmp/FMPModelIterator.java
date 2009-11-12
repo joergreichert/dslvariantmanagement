@@ -176,4 +176,8 @@ public class FMPModelIterator {
 		}
 		return attributeValue;
 	}
+	
+	public static void reset() {
+		FMPModelIterator.rootFeatureToFeatureValueObjectMap.clear();
+	}
 }

@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.mwe.core.WorkflowInterruptedException;
 import org.eclipse.emf.mwe.core.config.AttributeNotFound;
 import org.eclipse.emf.mwe.core.config.FeatureNotFound;
 import org.openarchitectureware.var.featureaccess.ConfigurationModelWrapper;
 
 import ca.uwaterloo.gp.fmp.Feature;
-import ca.uwaterloo.gp.fmp.FmpPackage;
 import ca.uwaterloo.gp.fmp.Project;
 
 public class FMPConfigurationModelWrapper extends ConfigurationModelWrapper {
 
 	private Feature root = null;
+	
+	public FMPConfigurationModelWrapper() {
+		
+	}
 
 	public void setConfigurationData(Object data) {
 		if (data instanceof Project) {
@@ -24,8 +26,10 @@ public class FMPConfigurationModelWrapper extends ConfigurationModelWrapper {
 			super.setConfigurationData(data);
 			root = project.getModel();
 			if (root == null) {
-				throw new RuntimeException(
-						"Given FMP configuration model is invalid.");
+				throw new WorkflowInterruptedException(
+						"Given FMP configuration model is invalid, "
+								+ "as no model specification could be found "
+								+ "in the model file.");
 			}
 		}
 	}
@@ -62,16 +66,7 @@ public class FMPConfigurationModelWrapper extends ConfigurationModelWrapper {
 
 	@Override
 	public void loadConfigurationData(String filenameOrUri) {
-		ResourceSet resourceSet = loadFmpPackages();
+		ResourceSet resourceSet = FMPHelper.loadFmpPackages();
 		setConfigurationData(getModelRoot(resourceSet, filenameOrUri));
-	}
-	
-	private ResourceSet loadFmpPackages() {
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put("fmp", new XMIResourceFactoryImpl());
-		resourceSet.getPackageRegistry().put(FmpPackage.eNS_URI,
-				FmpPackage.eINSTANCE);
-		return resourceSet;
 	}
 }

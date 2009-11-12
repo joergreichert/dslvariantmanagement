@@ -103,4 +103,8 @@ public class PVModelIterator {
 				.getEPackage());
 		return h.get(feature, attributeName);
 	}
+	
+	public static void reset() {
+		PVModelIterator.pvfeatureConfToFeatureValueObjectMap.clear();
+	}
 }

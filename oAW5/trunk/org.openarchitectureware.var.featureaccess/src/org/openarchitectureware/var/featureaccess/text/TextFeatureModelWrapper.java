@@ -16,6 +16,9 @@ public class TextFeatureModelWrapper extends FeatureModelWrapper {
 
 	private List<String> featureNames = null;
 	private String resourceUri;
+	
+	public TextFeatureModelWrapper() {
+	}
 
 	@Override
 	public void loadFeatureData(String filenameOrUri) {

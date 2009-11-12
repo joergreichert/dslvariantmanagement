@@ -10,7 +10,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.openarchitectureware.var.featureaccess.FeatureModelWrapper;
 import org.openarchitectureware.var.featureaccess.FileCreator;
 
@@ -18,12 +17,16 @@ public class FMPFeatureModelWrapper extends FeatureModelWrapper {
 
 	private List<String> featureNames = null;
 	private String resourceUri;
-
+	
+	public FMPFeatureModelWrapper() {
+		
+	}
+	
 	@Override
 	public void loadFeatureData(String filenameOrUri) {
 		resourceUri = filenameOrUri;
 		featureNames = new ArrayList<String>();
-		ResourceSet rs = new ResourceSetImpl();
+		ResourceSet rs = FMPHelper.loadFmpPackages();
 		String fullPath = FileCreator.getAccessiblePath(filenameOrUri);
 		Resource r = rs.getResource(URI.createURI(fullPath), true);
 		if (!r.isLoaded()) {

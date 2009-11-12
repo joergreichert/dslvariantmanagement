@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.mwe.core.WorkflowInterruptedException;
+
 public class TextModelIterator {
 	private static Map<List<String>, TextFeatureValueObject> textfeatureConfToFeatureValueObjectMap = new HashMap<List<String>, TextFeatureValueObject>();
 	
@@ -70,7 +72,14 @@ public class TextModelIterator {
 				if (isSelected) {
 					featureValueObject.selectedFeatureNames.add(line);
 				}
+			} else {
+				throw new WorkflowInterruptedException("The given text configuration model is invalid, "
+						+ "as in the model file every line have to start with + or -.");
 			}
 		}
+	}
+	
+	public static void reset() {
+		TextModelIterator.textfeatureConfToFeatureValueObjectMap.clear();
 	}
 }
