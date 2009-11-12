@@ -1,0 +1,21 @@
+
+			* CollaborationSystemFeatures
+			* AccessManagement
+			* Security
+			* Authentication
+			* Encryption
+			* AsynchronousConferencing
+			* SynchronousConferencing
+			* DocumentRepository
+			* Forum
+			* MicroBlogging
+			* Text
+			* Audio
+			* Video
+			* Data
+			* TelephoneIntegration
+			* VoiceOverIP
+			* VNC
+			* X11
+		
+	

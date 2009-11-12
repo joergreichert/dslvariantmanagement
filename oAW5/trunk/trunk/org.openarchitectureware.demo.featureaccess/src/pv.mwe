@@ -1,0 +1,11 @@
+<workflow>
+
+	<property name="conf_model_file" value="model/features/org.openarchitectureware.demo.fm.vdm.xmi" />
+	<property name="name" value="pv" />
+
+	<cartridge file="workflow_cartridge.mwe" inheritAll="true">
+		<conf_model_file value="${conf_model_file}" />
+		<name value="${name}"/>
+	</cartridge>
+	
+</workflow>
