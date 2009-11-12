@@ -1,0 +1,11 @@
+<workflow>
+
+	<property name="conf_model_file" value="model/features/example.txt" />
+	<property name="name" value="text" />
+
+	<cartridge file="workflow_cartridge.mwe" inheritAll="true">
+		<conf_model_file value="${conf_model_file}" />
+		<name value="${name}"/>
+	</cartridge>
+	
+</workflow>
