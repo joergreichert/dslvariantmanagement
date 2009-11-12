@@ -1,0 +1,5 @@
+Das ist ein ganz normaler mehrzeiliger
+Text mit Zeilenumbrüchen, der aber rein
+gar nichts mit dem erwarteten Format mit
++ und - in einer Textkonfigurationsdatei
+zu tun hat.

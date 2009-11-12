@@ -2,7 +2,6 @@ package org.openarchitectureware.var.featureaccess.text;
 
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.mwe.core.config.AttributeNotFound;
 import org.eclipse.emf.mwe.core.config.FeatureNotFound;
 import org.junit.Assert;
@@ -11,9 +10,6 @@ import org.junit.Test;
 import org.openarchitectureware.var.featureaccess.AbstractFeatureAccessTest;
 import org.openarchitectureware.var.featureaccess.TestData;
 import org.openarchitectureware.var.featureaccess.TestHelper;
-
-import ca.uwaterloo.gp.fmp.Feature;
-import ca.uwaterloo.gp.fmp.Project;
 
 public class TextConfigurationModelWrapperTest extends AbstractFeatureAccessTest
 		implements TestData {

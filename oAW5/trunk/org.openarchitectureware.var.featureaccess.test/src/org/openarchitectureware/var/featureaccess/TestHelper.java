@@ -1,9 +1,5 @@
 package org.openarchitectureware.var.featureaccess;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,8 +9,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.emf.mwe.core.resources.ResourceLoader;
-import org.eclipse.emf.mwe.core.resources.ResourceLoaderFactory;
 import org.junit.Assert;
 
 import ca.uwaterloo.gp.fmp.FmpPackage;
@@ -83,11 +77,12 @@ public class TestHelper {
 
 	public static List<String> getTextModelData(String textfeaturemodeluri) {
 		String[] expectedFeatureNames = new String[] {
-				"+CollaborationSystemFeatures", "+AccessManagement", "+Security",
-				"+Authentication", "+Encryption", "+AsynchronousConferencing",
-				"+SynchronousConferencing", "+DocumentRepository", "+Forum",
-				"-MicroBlogging", "+Text", "+Audio", "+Video", "+Data",
-				"-TelephoneIntegration", "+VoiceOverIP", "-VNC", "+X11" };
+				"+CollaborationSystemFeatures", "+AccessManagement",
+				"+Security", "+Authentication", "+Encryption",
+				"+AsynchronousConferencing", "+SynchronousConferencing",
+				"+DocumentRepository", "+Forum", "-MicroBlogging", "+Text",
+				"+Audio", "+Video", "+Data", "-TelephoneIntegration",
+				"+VoiceOverIP", "-VNC", "+X11" };
 		return Arrays.asList(expectedFeatureNames);
 	}
 }
