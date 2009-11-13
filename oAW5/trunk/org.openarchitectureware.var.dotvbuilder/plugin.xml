@@ -110,5 +110,9 @@
          </enabledWhen>
       </page>
    </extension>
+   
+   <!-- TODO: find a better solution to get the Plugin working correctly -->
+   <extension point="org.eclipse.ui.startup"/>
+
 
 </plugin>
