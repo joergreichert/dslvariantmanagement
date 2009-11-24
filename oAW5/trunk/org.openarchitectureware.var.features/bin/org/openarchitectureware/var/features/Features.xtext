@@ -1,0 +1,39 @@
+grammar org.openarchitectureware.var.features.Features with org.eclipse.xtext.common.Terminals
+
+generate features "http://www.openarchitectureware.org/var/features/Features"
+
+FeatureClause:
+	FeatureAndList | FeatureOrList | FeatureExpression | Feature
+;
+
+FeatureAndList:
+	"featureAndList" (retained?="retain")? "(" featureList+=ID ("," featureList+=ID)* ")"
+;
+  
+FeatureOrList:  
+	"featureOrList" (retained?="retain")? "(" featureList+=ID ("," featureList+=ID)* ")"
+;
+    
+FeatureExpression:
+	"featureExp" (retained?="retain")? "(" expression=OrExpression ")"
+;     
+    
+Feature:
+	"feature" (retained?="retain")? feature=ID
+;
+	
+OrExpression:
+	operands+=AndExpression ("or" operands+=AndExpression)*
+;
+
+AndExpression:
+	operands+=Operand ("and" operands+=Operand)*
+;
+
+Operand:
+	(isNot?="not")? expression=Atom
+;
+
+Atom:
+	feature=ID | "(" expression=OrExpression ")"
+;
