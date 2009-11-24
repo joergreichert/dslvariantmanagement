@@ -1,25 +1,79 @@
 package org.openarchitectureware.var.dotvbuilder;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.eclipse.core.internal.resources.ResourceException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.parser.IParseResult;
+import org.eclipse.xtext.parsetree.SyntaxError;
 import org.openarchitectureware.var.featureaccess.FeatureAccessFactory;
 import org.openarchitectureware.var.featureaccess.FeatureModelWrapper;
+import org.openarchitectureware.var.features.FeaturesRuntimeModule;
+import org.openarchitectureware.var.features.FeaturesStandaloneSetup;
+import org.openarchitectureware.var.features.features.Atom;
+import org.openarchitectureware.var.features.features.Feature;
+import org.openarchitectureware.var.features.parser.antlr.FeaturesParser;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class DotVFileHandler {
+	
+	static{
+		FeaturesStandaloneSetup.doSetup();
+	}
+	private static Injector injector = Guice.createInjector(new FeaturesRuntimeModule());
+	
+	private final class CommentStructure {
+		private final int line;
+		private final String clause;
+		private final CommentType type;
 
+		CommentStructure(int line, String clause, CommentType type) {
+			this.line = line;
+			this.clause = clause;
+			this.type = type;
+		}
+
+		public CommentType getType() {
+			return type;
+		}
+
+		public int getLine() {
+			return line;
+		}
+
+		public String getClause() {
+			return clause;
+		}
+
+	}
+	
+	private static final String FEATURE_SECTION_BEGIN = "#BEGIN";
+	private static final String FEATURE_SECTION_END = "#END";
+	protected static final String SINGLE_LINE_COMMENT_DEFAULT = "//";
+	private static final String FEATURE_COMMENT_END = "#";
+	
 	public static final String PLATFORM_RESOURCE = "platform:/resource";
+	
+	private static Log log = LogFactory.getLog(DotVFileHandler.class);
 	
 	private DotVBuilder builder;
 	private List<String> featureNames = null;
@@ -28,6 +82,10 @@ public class DotVFileHandler {
 	public DotVFileHandler( DotVBuilder builder ) {
 		this.builder = builder;
 	}
+	
+	private enum CommentType {
+		BEGIN, END
+	};
 	
 	void checkFile(IResource resource) {
 		if ( resource instanceof IFile ) {
@@ -42,7 +100,141 @@ public class DotVFileHandler {
 				checkFilenameDepenency(file);
 				checkFileContents( file );
 			}
+			if ( file.getName().endsWith(".java")) {
+				try {
+					List<CommentStructure> comments = buildCommentsStructure( loadFile(file) );
+					if(comments.size() > 0){
+						for (CommentStructure c : comments) {
+							IParseResult result = injector.getInstance(FeaturesParser.class)
+							 .parse("FeatureClause", new ByteArrayInputStream(c.clause.getBytes()));
+							if(result.getParseErrors().size() > 0){
+								String message = "";
+								for (SyntaxError err : result.getParseErrors()) 
+									message += err.getMessage() + "\n";
+								Exception e = new RuntimeException("parse error: " + message);
+								log.error("error while parsing feature clause", e);
+							}
+							EObject clause = result.getRootASTElement();
+							for(EObject e : EcoreUtil2.eAllContentsAsList(clause)){
+								if(e instanceof Feature || e instanceof Atom){
+									String feature = e.eGet( e.eClass().getEStructuralFeature("feature")).toString();
+									if( ! isFeatureDefined(file, feature) )
+										addMarkerIfNotDefined(feature , file, c.line);
+								}
+							}
+						}
+					}
+				} catch (ResourceException e) {
+					log.error("error loading file", e);
+				}catch (Throwable e) {
+					log.error("error loading file", e);
+				} 
+			}
 		}
+	}
+	
+	
+	public List<CommentStructure> buildCommentsStructure(List<String> lines) {
+		List<CommentStructure> newComments = new ArrayList<CommentStructure>();
+
+		for (int i = 0; i < lines.size(); i++) {
+			String line = lines.get(i);
+
+			if (isFeatureCommentBegin(line)) {
+				String featureClause = extractFeatureClauseFromComment(lines,
+						i, FEATURE_SECTION_BEGIN);
+
+				newComments.add(new CommentStructure(i, featureClause, CommentType.BEGIN));
+			} else if (isFeatureCommentEnd(line)) {
+				String featureClause = extractFeatureClauseFromComment(lines,
+						i, FEATURE_SECTION_END);
+
+				newComments.add(new CommentStructure(i, featureClause, CommentType.END));
+			}
+		}
+
+		return newComments;
+	}
+	
+	/**
+	 * @param st
+	 * @return is "begin" feature comment
+	 */
+	private boolean isFeatureCommentBegin(String st) {
+		return st.matches("[\\t ]*" + SINGLE_LINE_COMMENT_DEFAULT + "[\\t ]*"
+				+ FEATURE_SECTION_BEGIN + "(.)+");
+	}
+	
+	/**
+	 * @param st
+	 * @return is "end" feature comment
+	 */
+	private boolean isFeatureCommentEnd(String st) {
+		return st.matches("[\\t ]*" + SINGLE_LINE_COMMENT_DEFAULT + "[\\t ]*"
+				+ FEATURE_SECTION_END + "(.)+");
+	}
+	
+	private String extractFeatureClauseFromComment(List<String> lines,
+			int iStartLine, String commentStart) {
+		String result = "";
+		String startLine = lines.get(iStartLine);
+
+		if (startLine.endsWith(FEATURE_COMMENT_END)) { // one line comment
+			int iFeatureCommentBegin = startLine.indexOf(commentStart);
+			int iFeatureCommentEnd = startLine.lastIndexOf(FEATURE_COMMENT_END);
+
+			result = startLine.substring(
+					iFeatureCommentBegin + commentStart.length(),
+					iFeatureCommentEnd).trim();
+		} else { // multiple lines comments
+			int iEndLine = 0;
+			String endLine = "";
+			// iterate over commented lines
+			boolean commentLinesFinished = false;
+			int i = iStartLine;
+			while (!commentLinesFinished) {
+				String nextLine = lines.get(++i);
+
+				if (nextLine.contains(SINGLE_LINE_COMMENT_DEFAULT)) {
+					if (nextLine.endsWith(FEATURE_COMMENT_END)) {
+						// comment was finished with #
+						iEndLine = i;
+						endLine = nextLine;
+						commentLinesFinished = true;
+					}
+				} else { // comment was not properly finished with #
+					commentLinesFinished = true;
+				}
+			}
+
+			if (iEndLine != 0) // comment is properly finished
+			{
+				result = startLine.substring(startLine.indexOf(commentStart)
+						+ commentStart.length());
+				for (int j = iStartLine + 1; j < iEndLine; j++) {
+					result += lines.get(j).substring(
+							SINGLE_LINE_COMMENT_DEFAULT.length()).trim();
+				}
+				result += endLine.substring(
+						SINGLE_LINE_COMMENT_DEFAULT.length(),
+						endLine.indexOf(FEATURE_COMMENT_END)).trim();
+			}
+		}
+
+		return result;
+	}
+	
+	private List<String> loadFile(IFile file) throws FileNotFoundException,
+			IOException, CoreException {
+		List<String> lines = new ArrayList<String>();
+		DataInputStream in = new DataInputStream(file.getContents());
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		while (br.ready()) {
+			String line = br.readLine();
+			lines.add(line);
+		}
+		br.close();
+		return lines;
 	}
 
 	private String getFeatureModelUri(IProject p) {
