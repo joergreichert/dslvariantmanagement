@@ -102,6 +102,7 @@ public class DotVFileHandler {
 			}
 			if ( file.getName().endsWith(".java")) {
 				try {
+					builder.deleteMarkers(file);
 					List<CommentStructure> comments = buildCommentsStructure( loadFile(file) );
 					if(comments.size() > 0){
 						for (CommentStructure c : comments) {
