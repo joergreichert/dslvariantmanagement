@@ -21,7 +21,8 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.emf.common,
  org.antlr.runtime,
  org.openarchitectureware.var.featureaccess,
- org.eclipse.xtend
+ org.eclipse.xtend,
+ org.eclipse.core.resources
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.openarchitectureware.demo.archdsl.language,
  org.openarchitectureware.demo.archdsl.language.extensions,
