@@ -3,6 +3,7 @@
 	<property name="adslFile"/> 
 	<property name="configModelUri"/>
 	<property name="genPath"/>
+	<property name="aspectModelUri" value="NOT_SET"/> 
 	
 	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup">
 	    <platformUri value=".."/> 
@@ -12,7 +13,7 @@
 	
 	<component file="org/openarchitectureware/var/tailor/model/tailorPV.mwe"
 		standaloneSetup="org.openarchitectureware.demo.archdsl.language.AdslStandaloneSetup"
-		aspectModelUri="platform:/resource/test/model/components/aspects.adsl"
+		aspectModelUri="${aspectModelUri}"
 		architectureModelFile="${adslFile}"
 		configurationModelUri="${configModelUri}"		
 		constraintFile="org::openarchitectureware::demo::archdsl::language::validation::AdslFastChecks" />
