@@ -23,7 +23,7 @@ public class InstantMessagingService extends InstantMessagingServiceBase {
 		msg.setReceiverID( request.getSourceID() );
 		msg.setSenderID( request.getDestinationID() );
 		  
-		//# Security
+		//# Securityd
 		msg.setOpenKey( request.getOpenKey() );
 		//~# Security
 		
