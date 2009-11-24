@@ -7,10 +7,15 @@
 	<property name="configPath" value="generated/configured"/>
 	<property name="projectName" value="test"/>	
 	
+	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup">
+   	 <platformUri value=".."/>
+	</bean>
+	
 	<cartridge 
 		file="org/openarchitectureware/demo/archdsl/apiForProduct.mwe"
 		configModelUri="${configModelUri}"
 		adslFile="${adslFile}"
+		aspectModelUri="platform:/resource/test/model/components/aspects.adsl"
 		genPath="${genPath}"/>
 		
 		<component class="org.eclipse.emf.mwe.utils.DirectoryCleaner" 
@@ -24,12 +29,23 @@
         <configurationModelWrapperClass value="org.openarchitectureware.var.featureaccess.pv.PVConfigurationModelWrapper"/>
 	</component> 	
 	
+	<component class="org.openarchitectureware.var.tailor.code.CoderComponent4Java">
+		<sourcePath value="platform:/resource/${projectName}/src-variants"/>
+		<genPath value="platform:/resource/${projectName}/${configPath}"/>
+		<configurationModelSlot value="configurationModel"/>
+        <configurationModelWrapperClass value="org.openarchitectureware.var.featureaccess.pv.PVConfigurationModelWrapper"/>
+	</component> 	
+	
+	
+	<!--
+
 	<component id="write" class="org.eclipse.emf.mwe.utils.Writer">
 		<useSingleGlobalResourceSet value="true"/>
 		<cloneSlotContents value="true"/>
 		<modelSlot value="model"/>
 		<uri value="dump.xmi"/>	
-	</component>
+	</component>	
+	-->
 	
 
 </workflow>
