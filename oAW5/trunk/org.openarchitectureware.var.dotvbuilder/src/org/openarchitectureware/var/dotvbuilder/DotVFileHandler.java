@@ -116,13 +116,19 @@ public class DotVFileHandler {
 								log.error("error while parsing feature clause", e);
 							}
 							EObject clause = result.getRootASTElement();
-							for(EObject e : EcoreUtil2.eAllContentsAsList(clause)){
-								if(e instanceof Feature || e instanceof Atom){
-									String feature = e.eGet( e.eClass().getEStructuralFeature("feature")).toString();
-									if( ! isFeatureDefined(file, feature) )
-										addMarkerIfNotDefined(feature , file, c.line);
-								}
+							if(clause instanceof Feature){
+								String feature = clause.eGet( clause.eClass().getEStructuralFeature("feature")).toString();
+								if( ! isFeatureDefined(file, feature) )
+									addMarkerIfNotDefined(feature , file, c.line);
 							}
+							else
+								for(EObject e : EcoreUtil2.eAllContentsAsList(clause)){
+									if(e instanceof Feature || e instanceof Atom){
+										String feature = e.eGet( e.eClass().getEStructuralFeature("feature")).toString();
+										if( ! isFeatureDefined(file, feature) )
+											addMarkerIfNotDefined(feature , file, c.line);
+									}
+								}
 						}
 					}
 				} catch (ResourceException e) {
