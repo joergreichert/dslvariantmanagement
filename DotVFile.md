@@ -1,0 +1,1 @@
+A .v-file is a implementation file (source code or a property file) where the content is additionally tagged with feature constraints. The file extension ".v" prevents the IDE to handle these files as source code.
